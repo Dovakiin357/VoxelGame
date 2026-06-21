@@ -77,7 +77,7 @@ void draw(GameObject &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLo
 
 
     auto View = glm::mat4(1.0f);
-     View = glm::translate(View,glm::vec3(-10.0f,0.0f,-10.0f));
+     View = glm::translate(View,glm::vec3(-10.0f,0.0f,-50.0f));
 
     glUniformMatrix4fv(ModelLoc,1,GL_FALSE,glm::value_ptr(Model));
     glUniformMatrix4fv(ViewLoc,1,GL_FALSE,glm::value_ptr(View));

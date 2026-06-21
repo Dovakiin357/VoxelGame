@@ -59,7 +59,7 @@ int main() {
 
     std::cout << "hello";
 
-    glm::mat4 Proj = glm::perspective(glm::radians(45.0f),(float)SCR_WIDTH/(float)SCR_HEIGHT,0.1f,1000.0f);
+    glm::mat4 Proj = glm::perspective(glm::radians(45.0f),(float)SCR_WIDTH/(float)SCR_HEIGHT,0.1f,100.0f);
     // glm::mat4 View = glm::mat4(1.0f);
     // View = glm::translate(View,glm::vec3(-10.0f,0.0f,-30.0f));
 
