@@ -64,10 +64,11 @@ void Shader::shader_compile(GLuint &vs,const GLchar* Vptr,GLuint &fs,const GLcha
 
 
 
-Shader::Shader(const std::filesystem::path &VshaderPath,const std::filesystem::path &FshaderPath) {
-    VertexSourceCode = get_file_content(VshaderPath.string());
-    FragmentSourceCode = get_file_content(FshaderPath.string());
-
+Shader::Shader(const std::filesystem::path &VshaderPath,const std::filesystem::path &FshaderPath)
+    :VertexSourceCode(get_file_content(VshaderPath.string())),
+     FragmentSourceCode(get_file_content(FshaderPath.string())),
+     ShaderProgram(glCreateProgram())
+{
 
     const GLchar *VshaderPtr = VertexSourceCode.c_str();
     const GLchar *FshaderPtr = FragmentSourceCode.c_str();
@@ -75,7 +76,6 @@ Shader::Shader(const std::filesystem::path &VshaderPath,const std::filesystem::p
     GLuint VertexShader,FragmentShader;
     shader_compile(VertexShader,VshaderPtr,FragmentShader,FshaderPtr);
 
-    ShaderProgram = glCreateProgram();
     glAttachShader(ShaderProgram,VertexShader);
     glAttachShader(ShaderProgram,FragmentShader);
     glLinkProgram(ShaderProgram);

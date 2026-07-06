@@ -37,7 +37,6 @@ class Vertex {
 protected:
     unsigned int VBO;
     unsigned int EBO;
-
     void vertex_setup(std::vector<float> &Vertices,std::vector<GLuint> &Indices);
 public:
     unsigned int VAO;

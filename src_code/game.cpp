@@ -52,12 +52,11 @@ void Movement::move(glm::vec2 &pos) {
     pos.x += this->Speed;
 }
 
-GameObject::GameObject(glm::vec3 Pos) {
-    this->pos = Pos;
+GameObject::GameObject(glm::vec3 Pos)
+    :pos(Pos)
+{
     GameObjects.push_back(this);
-
-
-   std::vector<float> Vertices = build_cube_vertices();
+    std::vector<float> Vertices = build_cube_vertices();
     vertex_setup(Vertices,Indices);
     texture_setup();
 }
@@ -101,9 +100,9 @@ void delete_game_objs() {
     for (GameObject *obj:GameObjects) {
         obj->~GameObject();   }
 }
-Camera::Camera(GLFWwindow* window) {
-    Window = window;
-}
+Camera::Camera(GLFWwindow* window)
+    :Window(window){}
+
 
 void Camera::camera_movement() {
     if (glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS)
