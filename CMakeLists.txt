@@ -5,15 +5,17 @@ set(CMAKE_CXX_STANDARD 20)
 
 # Add GLFW
 add_subdirectory(Libraries/glfw-3.4)
+include_directories(glm-master)
+include_directories(Libraries)
 
 # Create executable
 add_executable(VoxelGame
-        main.cpp
+        src_code/main.cpp
         Libraries/glad/src/glad.c
-        abstraction.h
-        abstraction.cpp
-        game.h
-        game.cpp
+        src_code/abstraction.h
+        src_code/abstraction.cpp
+        src_code/game.h
+        src_code/game.cpp
 )
 
 # FORCE ABSOLUTE PATHS FOR HEADERS
