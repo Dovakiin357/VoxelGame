@@ -11,15 +11,7 @@ struct Vector {
 
 };
 
-class Movement {
-public:
-    float Speed;
-    Movement(float speed);
 
-protected:
-    void move(glm::vec2 &pos);
-
-};
 
 class GameObject : public Vertex,public Texture{
 public:
@@ -36,19 +28,24 @@ public:
        20, 21, 22,  22, 23, 20,  // bottom
     };
 
-    GameObject(glm::vec3 Pos);
+    explicit GameObject(glm::vec3 Pos);
     ~GameObject();
 };
 
 class Camera {
-public:
-    glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,5.0f);
+private:
+    float Yaw = -90.0f;
+    float Pitch = 0.0f;
+    glm::vec3 Dir = glm::vec3(0.0f,0.0f,0.0f);
+
+    glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,25.0f);
     const glm::vec3 Up = glm::vec3(0.0f,1.0f,0.0f);
-    const glm::vec3 CameraFront = glm::vec3(0.0f,0.0f,-1.0f);
-    const float CameraSpeed = 0.04f;
-    GLFWwindow* Window;
+    glm::vec3 CameraFront = glm::vec3(0.0f,0.0f,-1.0f);
+    float CameraSpeed = 50.0f;
+    GLFWwindow* Window = nullptr;
+public:
     explicit Camera(GLFWwindow* window);
-    void camera_movement();
+    void camera_movement(float delta_time);
     glm::mat4 glm_view();
 
 };
@@ -58,6 +55,7 @@ std::vector<float> build_quad_vertices( float width, float height);
 
 inline std::vector<GameObject*> GameObjects;
 
-void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera);
+void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime);
 void delete_game_objs();
+
 

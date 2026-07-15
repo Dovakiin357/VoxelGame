@@ -68,6 +68,9 @@ int main() {
     glClearColor(0.529f, 0.808f, 0.922f,1.0f);
     glEnable(GL_DEPTH_TEST);
 
+    float DeltaTime = 0.0f;
+    float LastFrame = 0.0f;
+
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -76,8 +79,12 @@ int main() {
         glUseProgram(shader.ShaderProgram);
         glUniformMatrix4fv(ProjLoc,1,GL_FALSE,glm::value_ptr(Proj));
 
+        auto CurrentFrame = static_cast<float>(glfwGetTime());
+        DeltaTime = CurrentFrame - LastFrame;
+        LastFrame = CurrentFrame;
 
-        render_game_objects(ModelLoc,TextureLoc,0,ViewLoc,camera);
+        camera.camera_movement(DeltaTime);
+        render_game_objects(ModelLoc,TextureLoc,0,ViewLoc,camera,DeltaTime);
 
 
         glfwSwapBuffers(window);
