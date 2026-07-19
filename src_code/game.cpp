@@ -97,16 +97,47 @@ void delete_game_objs() {
 
 
 Camera::Camera(GLFWwindow* window)
-    :Window(window) {
+    :Window(window),Input(window)
+{
     Dir.x = glm::cos(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
     Dir.y = glm::sin(glm::radians(Pitch));
     Dir.z = glm::sin(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
 }
 
+void Camera::camera_cursor_mov() {
+    float xOffset = CursorPosX - LastX;
+    float yOffset = CursorPosY - LastY;
+
+    LastX = CursorPosX;
+    LastY = CursorPosY;
+
+
+    if (IsPressingLeftMouse) {
+        xOffset *= Sensitivity;
+        yOffset *= Sensitivity;
+
+        Yaw += xOffset;
+        Pitch += yOffset;
+
+        if(Pitch > 89.0f)
+            Pitch =  89.0f;
+        if(Pitch < -89.0f)
+            Pitch = -89.0f;
+
+        Dir.x = glm::cos(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
+        Dir.y = glm::sin(glm::radians(Pitch));
+        Dir.z = glm::sin(glm::radians(Yaw)) * glm::cos(glm::radians(Pitch));
+    }
+}
+
+
 
 void Camera::camera_movement(float delta_time) {
-    CameraFront = Dir;
+
     float Speed =  CameraSpeed * delta_time;
+    camera_cursor_mov();
+    CameraFront = glm::normalize(Dir);
+
 
     if (glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS)
         CameraPos += Speed * CameraFront;

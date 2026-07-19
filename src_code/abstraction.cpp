@@ -130,10 +130,12 @@ void Texture::texture_setup() {
 }
 
 Input::Input(GLFWwindow* Window) {
-   ;
 
     glfwSetWindowUserPointer(Window,this);
     glfwSetKeyCallback(Window,key_callback);
+    glfwSetCursorPosCallback(Window,cursor_pos_callback);
+    glfwSetMouseButtonCallback(Window,mouse_button_callback);
+
 }
 
 void Input::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -145,3 +147,29 @@ void Input::key_callback(GLFWwindow *window, int key, int scancode, int action, 
     Pinput->key_state.DKeyPressed = (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
 
 }
+
+void Input::cursor_pos_callback(GLFWwindow *window, double xpos, double ypos) {
+    auto Pinput = static_cast<Input *>(glfwGetWindowUserPointer(window));
+
+    if (Pinput->FirstMouse == true) {
+        Pinput->LastX = static_cast<float>(xpos);
+        Pinput->LastY = static_cast<float>(ypos);
+        Pinput->FirstMouse = false;
+    }
+
+    Pinput->CursorPosX = static_cast<float>(xpos);
+    Pinput->CursorPosY = static_cast<float>(ypos);
+
+}
+
+void Input::mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
+    auto Pinput = static_cast<Input *>(glfwGetWindowUserPointer(window));
+    Pinput->IsPressingLeftMouse = (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS);
+}
+
+
+
+
+
+
+

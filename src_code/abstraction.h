@@ -54,11 +54,25 @@ protected:
 class Input {
 public:
     KeyState key_state = {false,false,false,false};
+    float CursorPosX;
+    float CursorPosY;
+
+    bool IsPressingLeftMouse;
+    bool FirstMouse = true;
+
+    float LastX = 400.0f;
+    float LastY = 300.0f;
+
     explicit Input(GLFWwindow* Window);
+
+
 private:
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos);
+    static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 };
+
 
 
 
