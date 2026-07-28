@@ -12,23 +12,16 @@ struct Vector {
 };
 
 
-
 class GameObject : public Vertex,public Texture{
 public:
+    static float ObjWidth;
+    static float ObjHeight;
+
+    static std::vector<GLuint> Indices;
+    static std::vector<GLfloat> Vertices;
+
     glm::vec3 pos;
-    float ObjWidth = 1.0f;
-    float ObjHeight = 1.0f;
-
-    std::vector<GLuint> Indices = {
-        0,  1,  2,   2,  3,  0,  // front
-        4,  5,  6,   6,  7,  4,  // back
-        8,  9, 10,  10, 11,  8,  // left
-       12, 13, 14,  14, 15, 12,  // right
-       16, 17, 18,  18, 19, 16,  // top
-       20, 21, 22,  22, 23, 20,  // bottom
-    };
-
-    explicit GameObject(glm::vec3 Pos);
+    GameObject(glm::vec3 Pos,const std::string &texture_path);
     ~GameObject();
 };
 
@@ -54,7 +47,7 @@ public:
 
 };
 
-std::vector<float> build_quad_vertices( float width, float height);
+
 
 
 inline std::vector<GameObject*> GameObjects;

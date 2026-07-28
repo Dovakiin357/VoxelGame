@@ -86,7 +86,7 @@ Shader::Shader(const std::filesystem::path &VshaderPath,const std::filesystem::p
 
 }
 
-void Vertex::vertex_setup(std::vector<float> &Vertices, std::vector<GLuint> &Indices) {
+Vertex::Vertex(std::vector<float> &Vertices, std::vector<GLuint> &Indices) {
     glGenVertexArrays(1,&this->VAO);
     glGenBuffers(1,&this->VBO);
     glGenBuffers(1,&this->EBO);
@@ -104,10 +104,14 @@ void Vertex::vertex_setup(std::vector<float> &Vertices, std::vector<GLuint> &Ind
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(2);
     glBindVertexArray(0);
-}
-const std::filesystem::path Texture::TexturePath = std::filesystem::path(std::string("Resources/minecraft.jpg"));
 
-void Texture::texture_setup() {
+    glDeleteBuffers(1,&this->VBO);
+    glDeleteBuffers(1,&this->EBO);
+}
+
+
+
+Texture::Texture(const std::string &texture_path) {
     glGenTextures(1,&TextureObj);
     glBindTexture(GL_TEXTURE_2D,TextureObj);
 
@@ -117,7 +121,7 @@ void Texture::texture_setup() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     int Width,Height,nrChannels;
-    unsigned char* data = stbi_load(TexturePath.string().c_str(),&Width,&Height,&nrChannels,0);
+    unsigned char* data = stbi_load(texture_path.c_str(),&Width,&Height,&nrChannels,0);
     if (data == nullptr) {
         std::cout << "coudnt load texture";
     }
@@ -129,24 +133,15 @@ void Texture::texture_setup() {
     stbi_image_free(data);
 }
 
+
 Input::Input(GLFWwindow* Window) {
 
     glfwSetWindowUserPointer(Window,this);
-    glfwSetKeyCallback(Window,key_callback);
     glfwSetCursorPosCallback(Window,cursor_pos_callback);
     glfwSetMouseButtonCallback(Window,mouse_button_callback);
 
 }
 
-void Input::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    auto Pinput = static_cast<Input *>(glfwGetWindowUserPointer(window));
-
-    Pinput->key_state.WKeyPressed = (glfwGetKey(window,GLFW_KEY_W) == GLFW_PRESS);
-    Pinput->key_state.AKeyPressed = (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS);
-    Pinput->key_state.SKeyPressed = (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS);
-    Pinput->key_state.DKeyPressed = (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
-
-}
 
 void Input::cursor_pos_callback(GLFWwindow *window, double xpos, double ypos) {
     auto Pinput = static_cast<Input *>(glfwGetWindowUserPointer(window));

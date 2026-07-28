@@ -9,12 +9,6 @@
 #include <vector>
 #include<filesystem>
 
-struct KeyState {
-    bool WKeyPressed;
-    bool AKeyPressed;
-    bool SKeyPressed;
-    bool DKeyPressed;
-};
 class Shader {
 public:
     std::string VertexSourceCode;
@@ -37,7 +31,8 @@ class Vertex {
 protected:
     unsigned int VBO;
     unsigned int EBO;
-    void vertex_setup(std::vector<float> &Vertices,std::vector<GLuint> &Indices);
+    Vertex(std::vector<float> &Vertices,std::vector<GLuint> &Indices);
+
 public:
     unsigned int VAO;
 
@@ -46,14 +41,12 @@ public:
 class Texture {
 public:
     GLuint TextureObj;
-    static const std::filesystem::path TexturePath;
 protected:
-    void texture_setup();
+    explicit Texture(const std::string &texture_path);
 };
 
 class Input {
 public:
-    KeyState key_state = {false,false,false,false};
     float CursorPosX;
     float CursorPosY;
 
@@ -67,7 +60,6 @@ public:
 
 
 private:
-    static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos);
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 

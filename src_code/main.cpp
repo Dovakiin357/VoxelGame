@@ -18,13 +18,14 @@ const unsigned int SCR_HEIGHT = 600;
 // Settings
 
 const auto FshaderPath = std::filesystem::path(std::string("Shaders/fragment_shader"));
-const auto TexturePath = std::filesystem::path(std::string("Resources/minecraft.jpg"));
+const auto TexturePath = std::filesystem::path(std::string("Resources/grass.jpg"));
 const auto VshaderPath = std::filesystem::path(std::string("Shaders/vertex_shader"));
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 int main() {
+
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -50,7 +51,7 @@ int main() {
 
 
 
-    GameObject game_object(glm::vec3(0.0f,0.0f,0.0f));
+    GameObject game_object(glm::vec3(0.0f,0.0f,0.0f),TexturePath.string());
     Camera camera(window);
     Shader shader(VshaderPath,FshaderPath);
 
