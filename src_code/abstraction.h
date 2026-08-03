@@ -38,12 +38,7 @@ public:
 
 };
 
-class Texture {
-public:
-    GLuint TextureObj;
-protected:
-    explicit Texture(const std::string &texture_path);
-};
+
 
 class Input {
 public:

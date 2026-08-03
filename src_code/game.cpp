@@ -75,8 +75,8 @@ std::vector<GLfloat> GameObject::Vertices = build_cube_vertices();
 
 
 
-GameObject::GameObject(glm::vec3 Pos,const std::string &texture_path)
-    :pos(Pos),Texture(texture_path),Vertex(Vertices,Indices)
+GameObject::GameObject(glm::vec3 Pos,TextureAtlas* texture_atlas)
+    :pos(Pos),Vertex(Vertices,Indices),TexAtlas(texture_atlas)
 {
     GameObjects.push_back(this);
 }
@@ -97,7 +97,7 @@ void draw(GameObject &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLo
     glUniformMatrix4fv(ViewLoc,1,GL_FALSE,glm::value_ptr(View));
 
     glActiveTexture(GL_TEXTURE0 + TextureUnit);
-    glBindTexture(GL_TEXTURE_2D,obj.TextureObj);
+    glBindTexture(GL_TEXTURE_2D,obj.TexAtlas->Atlas);
     glUniform1i(TextureLoc,TextureUnit);
 
     glBindVertexArray(obj.VAO);

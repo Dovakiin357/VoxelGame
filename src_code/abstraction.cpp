@@ -111,27 +111,27 @@ Vertex::Vertex(std::vector<float> &Vertices, std::vector<GLuint> &Indices) {
 
 
 
-Texture::Texture(const std::string &texture_path) {
-    glGenTextures(1,&TextureObj);
-    glBindTexture(GL_TEXTURE_2D,TextureObj);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    int Width,Height,nrChannels;
-    unsigned char* data = stbi_load(texture_path.c_str(),&Width,&Height,&nrChannels,0);
-    if (data == nullptr) {
-        std::cout << "coudnt load texture";
-    }
-    else {
-        glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-
-    stbi_image_free(data);
-}
+// Texture::Texture(const std::string &texture_path) {
+//     glGenTextures(1,&TextureObj);
+//     glBindTexture(GL_TEXTURE_2D,TextureObj);
+//
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//
+//     int Width,Height,nrChannels;
+//     unsigned char* data = stbi_load(texture_path.c_str(),&Width,&Height,&nrChannels,0);
+//     if (data == nullptr) {
+//         std::cout << "coudnt load texture";
+//     }
+//     else {
+//         glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+//         glGenerateMipmap(GL_TEXTURE_2D);
+//     }
+//
+//     stbi_image_free(data);
+// }
 
 
 Input::Input(GLFWwindow* Window) {

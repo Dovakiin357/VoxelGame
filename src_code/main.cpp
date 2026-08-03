@@ -1,5 +1,6 @@
 #include "abstraction.h"
 #include "game.h"
+#include "texture.h"
 #include<cmath>
 #include <filesystem>
 
@@ -48,10 +49,11 @@ int main() {
         return -1;
     }
 
+    TextureManager texture_manager;
+    TextureAtlas texture_atlas(TextureManager::Textures);
 
 
-
-    GameObject game_object(glm::vec3(0.0f,0.0f,0.0f),TexturePath.string());
+    GameObject game_object(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
     Camera camera(window);
     Shader shader(VshaderPath,FshaderPath);
 

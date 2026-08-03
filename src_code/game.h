@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include"abstraction.h"
+#include "texture.h"
 #include "../glm-master/glm-master/glm/glm.hpp"
 #include "../glm-master/glm-master/glm/gtc/matrix_transform.hpp"
 #include "../glm-master/glm-master/glm/gtc/type_ptr.hpp"
@@ -12,16 +13,17 @@ struct Vector {
 };
 
 
-class GameObject : public Vertex,public Texture{
+class GameObject : public Vertex{
 public:
     static float ObjWidth;
     static float ObjHeight;
+    TextureAtlas* TexAtlas;
 
     static std::vector<GLuint> Indices;
     static std::vector<GLfloat> Vertices;
 
     glm::vec3 pos;
-    GameObject(glm::vec3 Pos,const std::string &texture_path);
+    GameObject(glm::vec3 Pos,TextureAtlas* texture_atlas);
     ~GameObject();
 };
 
