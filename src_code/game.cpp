@@ -4,93 +4,14 @@
 
 
 
-std::vector<float> build_cube_vertices() {
-    return std::vector<float>{
-        // Front face (z = +1)
-        -1, -1,  1,   0, 0,
-         1, -1,  1,   1, 0,
-         1,  1,  1,   1, 1,
-        -1,  1,  1,   0, 1,
-
-        // Back face (z = -1)
-        -1, -1, -1,   1, 0,
-        -1,  1, -1,   1, 1,
-         1,  1, -1,   0, 1,
-         1, -1, -1,   0, 0,
-
-        // Left face (x = -1)
-        -1, -1, -1,   0, 0,
-        -1, -1,  1,   1, 0,
-        -1,  1,  1,   1, 1,
-        -1,  1, -1,   0, 1,
-
-        // Right face (x = +1)
-         1, -1,  1,   0, 0,
-         1, -1, -1,   1, 0,
-         1,  1, -1,   1, 1,
-         1,  1,  1,   0, 1,
-
-        // Top face (y = +1)
-        -1,  1,  1,   0, 0,
-         1,  1,  1,   1, 0,
-         1,  1, -1,   1, 1,
-        -1,  1, -1,   0, 1,
-
-        // Bottom face (y = -1)
-        -1, -1, -1,   0, 0,
-         1, -1, -1,   1, 0,
-         1, -1,  1,   1, 1,
-        -1, -1,  1,   0, 1,
-    };
-}
-
-std::vector<GLuint> build_cube_indices() {
-    return std::vector<GLuint>{
-        // Front face (Vertices 0, 1, 2, 3)
-        0,  1,  2,      2,  3,  0,
-
-        // Back face (Vertices 4, 5, 6, 7)
-        4,  5,  6,      6,  7,  4,
-
-        // Left face (Vertices 8, 9, 10, 11)
-        8,  9, 10,     10, 11,  8,
-
-        // Right face (Vertices 12, 13, 14, 15)
-        12, 13, 14,     14, 15, 12,
-
-        // Top face (Vertices 16, 17, 18, 19)
-        16, 17, 18,     18, 19, 16,
-
-        // Bottom face (Vertices 20, 21, 22, 23)
-        20, 21, 22,     22, 23, 20
-    };
-}
-
-float GameObject::ObjWidth = 1.0f;
-float GameObject::ObjHeight = 1.0f;
-
-std::vector<GLuint> GameObject::Indices = build_cube_indices();
-std::vector<GLfloat> GameObject::Vertices = build_cube_vertices();
 
 
 
-
-GameObject::GameObject(glm::vec3 Pos,TextureAtlas* texture_atlas)
-    :pos(Pos),Vertex(Vertices,Indices),TexAtlas(texture_atlas)
-{
-    GameObjects.push_back(this);
-}
-
-GameObject::~GameObject() {
-    std::erase(GameObjects,this);
-}
-
-
-void draw(GameObject &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime) {
+void draw(Block &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime) {
     auto Model = glm::mat4(1.0f);
 
-    Model = glm::translate(Model, glm::vec3(obj.pos));
-    Model = glm::scale(Model, glm::vec3(GameObject::ObjWidth, GameObject::ObjHeight, 1.0f));
+    Model = glm::translate(Model, glm::vec3(obj.Pos));
+    Model = glm::scale(Model, glm::vec3(1.0f, 1.0f, 1.0f));
 
     glm::mat4 View = camera.glm_view();
     glUniformMatrix4fv(ModelLoc,1,GL_FALSE,glm::value_ptr(Model));
@@ -101,21 +22,17 @@ void draw(GameObject &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLo
     glUniform1i(TextureLoc,TextureUnit);
 
     glBindVertexArray(obj.VAO);
-    glDrawElements(GL_TRIANGLES,(int)GameObject::Indices.size(),GL_UNSIGNED_INT,nullptr);
+    glDrawElements(GL_TRIANGLES,(int)Block::Indices.size(),GL_UNSIGNED_INT,nullptr);
 }
 
 
 
 void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime) {
-    for (GameObject *obj:GameObjects) {
+    for (auto *obj:Blocks) {
         draw(*(obj),ModelLoc,TextureLoc,TextureUnit,ViewLoc,camera,DeltaTime);
     }
 }
 
-void delete_game_objs() {
-    for (GameObject *obj:GameObjects) {
-        obj->~GameObject();   }
-}
 
 
 

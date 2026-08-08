@@ -53,7 +53,11 @@ int main() {
     TextureAtlas texture_atlas(TextureManager::Textures);
 
 
-    GameObject game_object(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
+    Block b1(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
+    Block b2(glm::vec3(1.0f,0.0f,4.0f),&texture_atlas);
+    Block b3(glm::vec3(0.0f,6.0f,2.0f),&texture_atlas);
+    Block b4(glm::vec3(1.0f,1.0f,2.0f),&texture_atlas);
+
     Camera camera(window);
     Shader shader(VshaderPath,FshaderPath);
 

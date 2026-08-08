@@ -28,6 +28,7 @@ void TextureManager::free_textures() {
 }
 
 TextureManager::TextureManager() {
+    stbi_set_flip_vertically_on_load(true);
     create_textures(TexPaths);
 }
 
@@ -61,6 +62,7 @@ void TextureAtlas::add_textures(std::unordered_map<std::string,Tex> &textures) {
 
 
 TextureAtlas::TextureAtlas(std::unordered_map<std::string, Tex> &textures) {
+
     glGenTextures(1,&Atlas);
     glBindTexture(GL_TEXTURE_2D,Atlas);
     create_atlas(textures);
@@ -77,6 +79,33 @@ TextureAtlas::TextureAtlas(std::unordered_map<std::string, Tex> &textures) {
     TextureManager::free_textures();
 
 }
+
+std::vector<GLfloat> get_norm(Tex &t,int aw,int ah) {
+    glm::vec2 uvTopRight,uvBottomLeft;
+    uvBottomLeft = glm::vec2(
+        t.PosInAtlas.x/(float)aw,
+         t.PosInAtlas.y/(float)ah
+        );
+
+    uvTopRight = glm::vec2(
+        (t.PosInAtlas.x + (float)t.Width)/(float)aw,
+        (t.PosInAtlas.y + (float)t.Height)/(float)ah
+        );
+
+    return {
+        uvBottomLeft.x, uvBottomLeft.y, // Vertex 0: Bottom-Left
+        uvTopRight.x,   uvBottomLeft.y, // Vertex 1: Bottom-Right
+        uvTopRight.x,   uvTopRight.y,   // Vertex 2: Top-Right
+        uvBottomLeft.x, uvTopRight.y    // Vertex 3: Top-Left
+    };
+
+
+
+
+
+
+}
+
 
 
 

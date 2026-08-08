@@ -27,17 +27,6 @@ private:
 
 };
 
-class Vertex {
-protected:
-    unsigned int VBO;
-    unsigned int EBO;
-    Vertex(std::vector<float> &Vertices,std::vector<GLuint> &Indices);
-
-public:
-    unsigned int VAO;
-
-};
-
 
 
 class Input {
@@ -60,6 +49,6 @@ private:
 
 };
 
-
+void set_vao(GLuint &vao,std::vector<GLfloat> &v,const std::vector<GLuint> &i);
 
 

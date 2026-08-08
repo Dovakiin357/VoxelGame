@@ -86,52 +86,6 @@ Shader::Shader(const std::filesystem::path &VshaderPath,const std::filesystem::p
 
 }
 
-Vertex::Vertex(std::vector<float> &Vertices, std::vector<GLuint> &Indices) {
-    glGenVertexArrays(1,&this->VAO);
-    glGenBuffers(1,&this->VBO);
-    glGenBuffers(1,&this->EBO);
-
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER,this->VBO);
-    glBufferData(GL_ARRAY_BUFFER,Vertices.size() * sizeof(float),Vertices.data(),GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,Indices.size() * sizeof(GLuint),Indices.data(),GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(2);
-    glBindVertexArray(0);
-
-    glDeleteBuffers(1,&this->VBO);
-    glDeleteBuffers(1,&this->EBO);
-}
-
-
-
-// Texture::Texture(const std::string &texture_path) {
-//     glGenTextures(1,&TextureObj);
-//     glBindTexture(GL_TEXTURE_2D,TextureObj);
-//
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-//     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//
-//     int Width,Height,nrChannels;
-//     unsigned char* data = stbi_load(texture_path.c_str(),&Width,&Height,&nrChannels,0);
-//     if (data == nullptr) {
-//         std::cout << "coudnt load texture";
-//     }
-//     else {
-//         glTexImage2D(GL_TEXTURE_2D,0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-//         glGenerateMipmap(GL_TEXTURE_2D);
-//     }
-//
-//     stbi_image_free(data);
-// }
 
 
 Input::Input(GLFWwindow* Window) {
@@ -162,7 +116,32 @@ void Input::mouse_button_callback(GLFWwindow *window, int button, int action, in
     Pinput->IsPressingLeftMouse = (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS);
 }
 
+void set_vao(GLuint &vao, std::vector<GLfloat> &v, const std::vector<GLuint> &i) {
+    GLuint EBO,VBO;
 
+    glGenVertexArrays(1,&vao);
+    glGenBuffers(1,&VBO);
+    glGenBuffers(1,&EBO);
+
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER,VBO);
+    glBufferData(GL_ARRAY_BUFFER,v.size() * sizeof(float),v.data(),GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,i.size() * sizeof(GLuint),i.data(),GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(2);
+    glBindVertexArray(0);
+
+    glDeleteBuffers(1,&VBO);
+    glDeleteBuffers(1,&EBO);
+
+
+}
 
 
 

@@ -18,6 +18,8 @@ add_executable(VoxelGame
         src_code/game.cpp
         src_code/texture.h
         src_code/texture.cpp
+        src_code/Block/block.h
+        src_code/Block/block.cpp
 )
 
 # FORCE ABSOLUTE PATHS FOR HEADERS

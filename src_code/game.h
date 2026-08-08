@@ -5,6 +5,7 @@
 #include "../glm-master/glm-master/glm/glm.hpp"
 #include "../glm-master/glm-master/glm/gtc/matrix_transform.hpp"
 #include "../glm-master/glm-master/glm/gtc/type_ptr.hpp"
+#include "Block/block.h"
 
 struct Vector {
     float x;
@@ -13,19 +14,19 @@ struct Vector {
 };
 
 
-class GameObject : public Vertex{
-public:
-    static float ObjWidth;
-    static float ObjHeight;
-    TextureAtlas* TexAtlas;
-
-    static std::vector<GLuint> Indices;
-    static std::vector<GLfloat> Vertices;
-
-    glm::vec3 pos;
-    GameObject(glm::vec3 Pos,TextureAtlas* texture_atlas);
-    ~GameObject();
-};
+// class GameObject : public Vertex{
+// public:
+//     static float ObjWidth;
+//     static float ObjHeight;
+//     TextureAtlas* TexAtlas;
+//
+//     static std::vector<GLuint> Indices;
+//     static std::vector<GLfloat> Vertices;
+//
+//     glm::vec3 pos;
+//     GameObject(glm::vec3 Pos,TextureAtlas* texture_atlas);
+//     ~GameObject();
+// };
 
 class Camera : public Input{
 private:
@@ -52,7 +53,7 @@ public:
 
 
 
-inline std::vector<GameObject*> GameObjects;
+// inline std::vector<GameObject*> GameObjects;
 
 void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime);
 void delete_game_objs();

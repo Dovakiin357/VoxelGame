@@ -33,11 +33,14 @@ class TextureAtlas {
 public:
     explicit TextureAtlas(std::unordered_map<std::string,Tex> &textures);
     GLuint Atlas;
-private:
-
     int AtlasHeight = 0;
     int AtlasWidth = 0;
+private:
+
+
     void add_textures(std::unordered_map<std::string,Tex> &textures);
     void create_atlas(std::unordered_map<std::string,Tex> &textures);
 
 };
+
+std::vector<GLfloat> get_norm(Tex &t,int aw,int ah);
