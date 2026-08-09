@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
-#include"abstraction.h"
-#include "texture.h"
-#include "../glm-master/glm-master/glm/glm.hpp"
-#include "../glm-master/glm-master/glm/gtc/matrix_transform.hpp"
-#include "../glm-master/glm-master/glm/gtc/type_ptr.hpp"
-#include "Block/block.h"
+#include "../Abstraction/abstraction.h"
+#include "../Texture/texture.h"
+#include "../../glm-master/glm-master/glm/glm.hpp"
+#include "../../glm-master/glm-master/glm/gtc/matrix_transform.hpp"
+#include "../../glm-master/glm-master/glm/gtc/type_ptr.hpp"
+#include "../Block/block.h"
 
 
 

@@ -12,12 +12,12 @@ include_directories(Libraries)
 add_executable(VoxelGame
         src_code/main.cpp
         Libraries/glad/src/glad.c
-        src_code/abstraction.h
-        src_code/abstraction.cpp
-        src_code/game.h
-        src_code/game.cpp
-        src_code/texture.h
-        src_code/texture.cpp
+        src_code/Abstraction/abstraction.h
+        src_code/Abstraction/abstraction.cpp
+        src_code/Game/game.h
+        src_code/Game/game.cpp
+        src_code/Texture/texture.h
+        src_code/Texture/texture.cpp
         src_code/Block/block.h
         src_code/Block/block.cpp
 )

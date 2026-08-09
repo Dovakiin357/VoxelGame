@@ -1,8 +1,8 @@
 #pragma once
-#include "../abstraction.h"
+#include "../Abstraction/abstraction.h"
 #include "glad/glad.h"
 #include "glm-master/glm/vec3.hpp"
-#include "../texture.h"
+#include "../Texture/texture.h"
 
 
 

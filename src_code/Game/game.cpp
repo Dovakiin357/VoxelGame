@@ -1,4 +1,4 @@
-#include "game.h"
+#include "../Game/game.h"
 #include "glad/glad.h"
 #include <array>
 

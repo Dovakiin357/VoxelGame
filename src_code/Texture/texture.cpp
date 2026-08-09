@@ -1,6 +1,6 @@
-#include "texture.h"
-
-#include "stb_image.h"
+#include "../Texture//texture.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "../Texture/stb_image.h"
 
 std::unordered_map<std::string,Tex> TextureManager::Textures = {};
 

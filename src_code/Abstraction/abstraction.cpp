@@ -1,6 +1,6 @@
-#include "abstraction.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "../Abstraction/abstraction.h"
+
+#include "../Texture/stb_image.h"
 
 
 std::string Shader::get_file_content(const std::string &file_name) {

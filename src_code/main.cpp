@@ -1,6 +1,6 @@
-#include "abstraction.h"
-#include "game.h"
-#include "texture.h"
+#include "Abstraction/abstraction.h"
+#include "Game/game.h"
+#include "Texture/texture.h"
 #include<cmath>
 #include <filesystem>
 
@@ -101,8 +101,6 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-
 
     glfwTerminate();
     return 0;
