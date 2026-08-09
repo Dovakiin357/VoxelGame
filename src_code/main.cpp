@@ -54,9 +54,13 @@ int main() {
 
 
     Block b1(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
-    Block b2(glm::vec3(1.0f,0.0f,4.0f),&texture_atlas);
-    Block b3(glm::vec3(0.0f,6.0f,2.0f),&texture_atlas);
-    Block b4(glm::vec3(1.0f,1.0f,2.0f),&texture_atlas);
+    Block b2(glm::vec3(3.0f,0.0f,7.0f),&texture_atlas);
+    Block b3(glm::vec3(10.0f,7.0f,0.0f),&texture_atlas);
+    Block b4(glm::vec3(0.0f,5.0f,0.0f),&texture_atlas);
+    Block b5(glm::vec3(3.0f,4.0f,0.0f),&texture_atlas);
+    Block b6(glm::vec3(0.0f,5.0f,8.0f),&texture_atlas);
+    Block b7(glm::vec3(3.0f,9.0f,4.0f),&texture_atlas);
+
 
     Camera camera(window);
     Shader shader(VshaderPath,FshaderPath);

@@ -3,105 +3,93 @@
 // Format per vertex: Position (X, Y, Z), UV (U, V)
 
 // Front Face (+Z)
-// const std::vector<GLfloat> Block::FrontFace = {
-//  // Position           // UV
-//  // Triangle 1
-//  0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
-//  1.0f, 0.0f, 1.0f,    1.0f, 0.0f,
-//  1.0f, 1.0f, 1.0f,    1.0f, 1.0f,
-//  // Triangle 2
-//  1.0f, 1.0f, 1.0f,    1.0f, 1.0f,
-//  0.0f, 1.0f, 1.0f,    0.0f, 1.0f,
-//  0.0f, 0.0f, 1.0f,    0.0f, 0.0f
-// };
+const std::vector<Vertex> Block::FrontFace = {
+ { glm::vec3(0.0f, 0.0f, 1.0f)}, // Index 0: Bottom-Left
+ { glm::vec3(1.0f, 0.0f, 1.0f)}, // Index 1: Bottom-Right
+ { glm::vec3(1.0f, 1.0f, 1.0f)}, // Index 2: Top-Right
+ { glm::vec3(0.0f, 1.0f, 1.0f)}  // Index 3: Top-Left
 
-const std::vector<GLfloat> Block::FrontFace = {
- 0.0f, 0.0f, 1.0f,     // 0: Bottom-Left
- 1.0f, 0.0f, 1.0f,     // 1: Bottom-Right
- 1.0f, 1.0f, 1.0f,     // 2: Top-Right
- 0.0f, 1.0f, 1.0f,     // 3: Top-Left
 };
 
+
 // Left Face (-X)
-const std::vector<GLfloat> Block::LeftFace = {
- // Position           // UV
- // Triangle 1
- 0.0f, 0.0f, 0.0f,    0.0f, 0.0f,
- 0.0f, 0.0f, 1.0f,    1.0f, 0.0f,
- 0.0f, 1.0f, 1.0f,    1.0f, 1.0f,
- // Triangle 2
- 0.0f, 1.0f, 1.0f,    1.0f, 1.0f,
- 0.0f, 1.0f, 0.0f,    0.0f, 1.0f,
- 0.0f, 0.0f, 0.0f,    0.0f, 0.0f
+const std::vector<Vertex> Block::LeftFace = {
+ { glm::vec3(0.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
+ { glm::vec3(0.0f, 0.0f, 1.0f) }, // 1: Bottom-Right
+ { glm::vec3(0.0f, 1.0f, 1.0f) }, // 2: Top-Right
+ { glm::vec3(0.0f, 1.0f, 0.0f) }  // 3: Top-Left
 };
 
 // Right Face (+X)
-const std::vector<GLfloat> Block::RightFace = {
- // Position           // UV
- // Triangle 1
- 1.0f, 0.0f, 1.0f,    0.0f, 0.0f,
- 1.0f, 0.0f, 0.0f,    1.0f, 0.0f,
- 1.0f, 1.0f, 0.0f,    1.0f, 1.0f,
- // Triangle 2
- 1.0f, 1.0f, 0.0f,    1.0f, 1.0f,
- 1.0f, 1.0f, 1.0f,    0.0f, 1.0f,
- 1.0f, 0.0f, 1.0f,    0.0f, 0.0f
+const std::vector<Vertex> Block::RightFace = {
+ { glm::vec3(1.0f, 0.0f, 1.0f) }, // 0: Bottom-Left
+ { glm::vec3(1.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
+ { glm::vec3(1.0f, 1.0f, 0.0f) }, // 2: Top-Right
+ { glm::vec3(1.0f, 1.0f, 1.0f) }  // 3: Top-Left
 };
 
 // Top Face (+Y)
-const std::vector<GLfloat> Block::TopFace = {
- // Position           // UV
- // Triangle 1
- 0.0f, 1.0f, 1.0f,    0.0f, 0.0f,
- 1.0f, 1.0f, 1.0f,    1.0f, 0.0f,
- 1.0f, 1.0f, 0.0f,    1.0f, 1.0f,
- // Triangle 2
- 1.0f, 1.0f, 0.0f,    1.0f, 1.0f,
- 0.0f, 1.0f, 0.0f,    0.0f, 1.0f,
- 0.0f, 1.0f, 1.0f,    0.0f, 0.0f
+const std::vector<Vertex> Block::TopFace = {
+ { glm::vec3(0.0f, 1.0f, 1.0f) }, // 0: Bottom-Left
+ { glm::vec3(1.0f, 1.0f, 1.0f) }, // 1: Bottom-Right
+ { glm::vec3(1.0f, 1.0f, 0.0f) }, // 2: Top-Right
+ { glm::vec3(0.0f, 1.0f, 0.0f) }  // 3: Top-Left
 };
 
 // Bottom Face (-Y)
-const std::vector<GLfloat> Block::BottomFace = {
- // Position
- // Triangle 1
- 0.0f, 0.0f, 0.0f,
- 1.0f, 0.0f, 0.0f,
- 1.0f, 0.0f, 1.0f,
- // Triangle 2
- 1.0f, 0.0f, 1.0f,
- 0.0f, 0.0f, 1.0f,
- 0.0f, 0.0f, 0.0f,
+const std::vector<Vertex> Block::BottomFace = {
+ { glm::vec3(0.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
+ { glm::vec3(1.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
+ { glm::vec3(1.0f, 0.0f, 1.0f) }, // 2: Top-Right
+ { glm::vec3(0.0f, 0.0f, 1.0f) }  // 3: Top-Left
+};
+
+const std::vector<Vertex> Block::BackFace = {
+ { glm::vec3(1.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
+ { glm::vec3(0.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
+ { glm::vec3(0.0f, 1.0f, 0.0f) }, // 2: Top-Right
+ { glm::vec3(1.0f, 1.0f, 0.0f) }  // 3: Top-Left
 };
 
 
-std::vector<GLuint> Block::Indices = {
- // Front face (Vertices 0, 1, 2, 3)
- 0, 1, 2,  2, 3, 0
 
+ std::vector<GLuint> Block::Indices = {
+ // Front
+ 0, 1, 2, 2, 3, 0,
+ // Back
+ 4, 5, 6, 6, 7, 4,
+ // Left
+ 8, 9, 10, 10, 11, 8,
+ // Right
+ 12, 13, 14, 14, 15, 12,
+ // Top
+ 16, 17, 18, 18, 19, 16,
+ // Bottom
+ 20, 21, 22, 22, 23, 20
 };
 
 
-void add_face(Block *b, const std::vector<GLfloat> &vert, const std::string &k) {
+void add_face(Block *b, const std::vector<Vertex> &vert, const std::string &k) {
  Tex t = TextureManager::Textures[k];
- std::vector<GLfloat> uv = get_norm(t, b->TexAtlas->AtlasWidth, b->TexAtlas->AtlasHeight);
+ std::vector<glm::vec2> norm_uv = get_norm(t, b->TexAtlas->AtlasWidth, b->TexAtlas->AtlasHeight);
 
- // Remove b->mesh.insert()! Only use the interleaving loop:
- for (int v = 0; v < 4; ++v) {
-  // Position (X, Y, Z)
-  b->mesh.push_back(vert[v * 3 + 0]);
-  b->mesh.push_back(vert[v * 3 + 1]);
-  b->mesh.push_back(vert[v * 3 + 2]);
-
-  // UV (U, V)
-  b->mesh.push_back(uv[v * 2 + 0]);
-  b->mesh.push_back(uv[v * 2 + 1]);
+ for(size_t i = 0;i < vert.size();i++) {
+  Vertex v = vert[i];
+  v.uv = norm_uv[i];
+  b->mesh.push_back(v);
  }
 }
 
 
 Block::Block(glm::vec3 pos,TextureAtlas* ta) :Pos(pos),TexAtlas(ta){
- add_face(this,Block::FrontFace,"Resources/dirt.jpg");
+
+ add_face(this,Block::FrontFace,"Resources/dirt_grass.jpg");
+ add_face(this,Block::BackFace,"Resources/dirt_grass.jpg");
+ add_face(this,Block::LeftFace,"Resources/dirt_grass.jpg");
+ add_face(this,Block::RightFace,"Resources/dirt_grass.jpg");
+ add_face(this,Block::TopFace,"Resources/grass.jpg");
+ add_face(this,Block::BottomFace,"Resources/dirt.jpg");
+
  Blocks.push_back(this);
  set_vao(this->VAO,this->mesh,Block::Indices);
 

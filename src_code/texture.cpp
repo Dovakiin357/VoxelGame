@@ -80,8 +80,8 @@ TextureAtlas::TextureAtlas(std::unordered_map<std::string, Tex> &textures) {
 
 }
 
-std::vector<GLfloat> get_norm(Tex &t,int aw,int ah) {
-    glm::vec2 uvTopRight,uvBottomLeft;
+std::vector<glm::vec2> get_norm(Tex &t,int aw,int ah) {
+    glm::vec2 uvTopRight,uvBottomLeft,uvTopLeft,uvBottomRight;
     uvBottomLeft = glm::vec2(
         t.PosInAtlas.x/(float)aw,
          t.PosInAtlas.y/(float)ah
@@ -92,18 +92,17 @@ std::vector<GLfloat> get_norm(Tex &t,int aw,int ah) {
         (t.PosInAtlas.y + (float)t.Height)/(float)ah
         );
 
-    return {
-        uvBottomLeft.x, uvBottomLeft.y, // Vertex 0: Bottom-Left
-        uvTopRight.x,   uvBottomLeft.y, // Vertex 1: Bottom-Right
-        uvTopRight.x,   uvTopRight.y,   // Vertex 2: Top-Right
-        uvBottomLeft.x, uvTopRight.y    // Vertex 3: Top-Left
-    };
+    uvTopLeft = glm::vec2(
+        (t.PosInAtlas.x)/(float)aw,
+        (t.PosInAtlas.y + (float)t.Height)/(float)ah
+        );
 
+    uvBottomRight = glm::vec2(
+    (t.PosInAtlas.x + (float)t.Width)/(float)aw,
+    t.PosInAtlas.y/(float)ah
+    );
 
-
-
-
-
+    return {uvBottomLeft,uvBottomRight,uvTopRight,uvTopLeft};
 }
 
 

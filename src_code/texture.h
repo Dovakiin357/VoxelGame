@@ -22,7 +22,8 @@ public:
 
 private:
     const std::vector<std::string> TexPaths = {
-        "Resources/dirt.jpg","Resources/grass.jpg","Resources/download.jpg"
+        "Resources/dirt.jpg","Resources/grass.jpg","Resources/download.jpg",
+        "Resources/dirt_grass.jpg"
     };
     static void create_textures(const std::vector<std::string> &tex_paths);
 
@@ -43,4 +44,4 @@ private:
 
 };
 
-std::vector<GLfloat> get_norm(Tex &t,int aw,int ah);
+std::vector<glm::vec2> get_norm(Tex &t,int aw,int ah);

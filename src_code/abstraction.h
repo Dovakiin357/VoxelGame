@@ -9,6 +9,13 @@
 #include <vector>
 #include<filesystem>
 
+#include "glm-master/glm/glm.hpp"
+
+struct Vertex {
+    glm::vec3 vert;
+    glm::vec2 uv = glm::vec2(0.0f,0.0f);
+};
+
 class Shader {
 public:
     std::string VertexSourceCode;
@@ -49,6 +56,6 @@ private:
 
 };
 
-void set_vao(GLuint &vao,std::vector<GLfloat> &v,const std::vector<GLuint> &i);
+void set_vao(GLuint &vao,std::vector<Vertex> &v,const std::vector<GLuint> &i);
 
 
