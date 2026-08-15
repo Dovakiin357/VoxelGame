@@ -69,26 +69,28 @@ const std::vector<Vertex> Block::BackFace = {
 };
 
 
-void add_face(Block *b, const std::vector<Vertex> &vert, const std::string &k) {
- Tex t = TextureManager::Textures[k];
- std::vector<glm::vec2> norm_uv = get_norm(t, b->TexAtlas->AtlasWidth, b->TexAtlas->AtlasHeight);
+void add_face(Block *b, const std::vector<Vertex> &vert,BlockTypes type) {
+ Tex t = TextureManager::Textures[type];
+
 
  for(size_t i = 0;i < vert.size();i++) {
   Vertex v = vert[i];
-  v.uv = norm_uv[i];
+  v.uv = t.uv[i];
   b->mesh.push_back(v);
  }
 }
 
 
+
+
 Block::Block(glm::vec3 pos,TextureAtlas* ta) :Pos(pos),TexAtlas(ta){
 
- add_face(this,Block::FrontFace,"Resources/dirt_grass.jpg");
- add_face(this,Block::BackFace,"Resources/dirt_grass.jpg");
- add_face(this,Block::LeftFace,"Resources/dirt_grass.jpg");
- add_face(this,Block::RightFace,"Resources/dirt_grass.jpg");
- add_face(this,Block::TopFace,"Resources/grass.jpg");
- add_face(this,Block::BottomFace,"Resources/dirt.jpg");
+ add_face(this,Block::FrontFace,DirtGrass);
+ add_face(this,Block::BackFace,DirtGrass);
+ add_face(this,Block::LeftFace,DirtGrass);
+ add_face(this,Block::RightFace,DirtGrass);
+ add_face(this,Block::TopFace,Grass);
+ add_face(this,Block::BottomFace,Dirt);
 
  Blocks.push_back(this);
  set_vao(this->VAO,this->mesh,Block::Indices);

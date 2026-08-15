@@ -2,25 +2,29 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Texture/stb_image.h"
 
-std::unordered_map<std::string,Tex> TextureManager::Textures = {};
+std::unordered_map<BlockTypes,Tex> TextureManager::Textures = {};
+std::unordered_map<BlockTypes,std::string> TextureManager::texpaths = {
+    {Grass,"Resources/grass.jpg"},{DirtGrass,"Resources/dirt_grass.jpg"},
+    {Dirt,"Resources/dirt.jpg"},{Gengar,"Resources/download.jpg"}
+};
 
-void TextureManager::create_textures(const std::vector<std::string> &tex_paths) {
-    for (const auto&TexPath:tex_paths) {
+void TextureManager::create_textures(std::unordered_map<BlockTypes,std::string> &tex_paths) {
+    for (const auto& [k,v]:tex_paths) {
         Tex texture;
         texture.Data = stbi_load(
-            TexPath.c_str(),&texture.Width,&texture.Height,
+            v.c_str(),&texture.Width,&texture.Height,
             &texture.nrChannels,0
             );
         if (texture.Data != nullptr) {
-            Textures[TexPath] = texture;
+            TextureManager::Textures[k] = texture;
         }
         else
-            std::cout << "Couldnt load Texture:" << TexPath;
+            std::cout << "Couldnt load Texture:" << v;
     }
 }
 
 void TextureManager::free_textures() {
-    for (auto &pair:Textures) {
+    for (auto &pair:TextureManager::Textures) {
         if (pair.second.Data != nullptr)
             stbi_image_free(pair.second.Data);
         pair.second.Data = nullptr;
@@ -29,30 +33,32 @@ void TextureManager::free_textures() {
 
 TextureManager::TextureManager() {
     stbi_set_flip_vertically_on_load(true);
-    create_textures(TexPaths);
+    create_textures(TextureManager::texpaths);
 }
 
-void TextureAtlas::create_atlas(std::unordered_map<std::string, Tex> &textures) {
+void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Tex> &textures) {
     AtlasHeight = 0;
-    for (auto &tex:textures) {
-        AtlasWidth += tex.second.Width;
-        if (tex.second.Height > AtlasHeight)
-            AtlasHeight = tex.second.Height;
+    for (auto &[typ,t]:textures) {
+        AtlasWidth += t.Width;
+        if (t.Height > AtlasHeight)
+            AtlasHeight = t.Height;
     }
+    std::cout << AtlasWidth;
 }
 
-void TextureAtlas::add_textures(std::unordered_map<std::string,Tex> &textures) {
+void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     int Yoffset = 0;
     int Xoffset = 0;
-    for (auto &tex:textures) {
-        if (tex.second.Data != nullptr) {
+    for (auto &[typ,tex]:textures) {
+        if (tex.Data != nullptr) {
             glTexSubImage2D(GL_TEXTURE_2D,0,Xoffset,Yoffset,
-            tex.second.Width,tex.second.Height,GL_RGB,GL_UNSIGNED_BYTE,
-            tex.second.Data);
+            tex.Width,tex.Height,GL_RGB,GL_UNSIGNED_BYTE,
+            tex.Data);
 
-            tex.second.PosInAtlas = glm::vec2(Xoffset,Yoffset);
-            Xoffset += tex.second.Width;
+            tex.PosInAtlas = glm::vec2(Xoffset,Yoffset);
+            tex.uv = get_uv(tex);
+            Xoffset += tex.Width;
         }
         else std::cout << "tex data is nullptr";
     }
@@ -61,7 +67,7 @@ void TextureAtlas::add_textures(std::unordered_map<std::string,Tex> &textures) {
 
 
 
-TextureAtlas::TextureAtlas(std::unordered_map<std::string, Tex> &textures) {
+TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) {
 
     glGenTextures(1,&Atlas);
     glBindTexture(GL_TEXTURE_2D,Atlas);
@@ -80,30 +86,32 @@ TextureAtlas::TextureAtlas(std::unordered_map<std::string, Tex> &textures) {
 
 }
 
-std::vector<glm::vec2> get_norm(Tex &t,int aw,int ah) {
+
+std::array<glm::vec2, 4> TextureAtlas::get_uv(const Tex &t) {
     glm::vec2 uvTopRight,uvBottomLeft,uvTopLeft,uvBottomRight;
     uvBottomLeft = glm::vec2(
-        t.PosInAtlas.x/(float)aw,
-         t.PosInAtlas.y/(float)ah
-        );
+       t.PosInAtlas.x/(float)AtlasWidth,
+        t.PosInAtlas.y/(float)AtlasHeight
+       );
 
     uvTopRight = glm::vec2(
-        (t.PosInAtlas.x + (float)t.Width)/(float)aw,
-        (t.PosInAtlas.y + (float)t.Height)/(float)ah
+        (t.PosInAtlas.x + (float)t.Width)/(float)AtlasWidth,
+        (t.PosInAtlas.y + (float)t.Height)/(float)AtlasHeight
         );
 
     uvTopLeft = glm::vec2(
-        (t.PosInAtlas.x)/(float)aw,
-        (t.PosInAtlas.y + (float)t.Height)/(float)ah
-        );
+        (t.PosInAtlas.x)/(float)AtlasWidth,
+        (t.PosInAtlas.y + (float)t.Height)/(float)AtlasHeight);
+
 
     uvBottomRight = glm::vec2(
-    (t.PosInAtlas.x + (float)t.Width)/(float)aw,
-    t.PosInAtlas.y/(float)ah
+    (t.PosInAtlas.x + (float)t.Width)/(float)AtlasWidth,
+    t.PosInAtlas.y/(float)AtlasHeight
     );
 
     return {uvBottomLeft,uvBottomRight,uvTopRight,uvTopLeft};
 }
+
 
 
 

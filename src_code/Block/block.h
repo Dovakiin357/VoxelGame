@@ -6,7 +6,6 @@
 
 
 
-
 class Block{
 public:
     GLuint VAO;
@@ -26,6 +25,11 @@ private:
 
 
 };
-// inline int count = 300;
+
+
+
+
 inline std::vector<Block*> Blocks;
-void  add_face(Block* b,const std::vector<Vertex> &vert,const std::string &k);
+void  add_face(Block* b,const std::vector<Vertex> &vert,BlockTypes type);
+
+

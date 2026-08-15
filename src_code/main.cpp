@@ -53,6 +53,8 @@ int main() {
     TextureAtlas texture_atlas(TextureManager::Textures);
 
 
+
+
     Block b1(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
     Block b2(glm::vec3(3.0f,0.0f,7.0f),&texture_atlas);
     Block b3(glm::vec3(10.0f,7.0f,0.0f),&texture_atlas);

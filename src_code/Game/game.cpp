@@ -48,6 +48,7 @@ void Camera::camera_cursor_mov() {
     float xOffset = CursorPosX - LastX;
     float yOffset = CursorPosY - LastY;
 
+
     LastX = CursorPosX;
     LastY = CursorPosY;
 

@@ -41,7 +41,7 @@ public:
     float CursorPosX;
     float CursorPosY;
 
-    bool IsPressingLeftMouse;
+    bool IsPressingLeftMouse = false;
     bool FirstMouse = true;
 
     float LastX = 400.0f;

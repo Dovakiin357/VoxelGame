@@ -9,7 +9,7 @@ include_directories(glm-master)
 include_directories(Libraries)
 
 # Create executable
-add_executable(VoxelGame
+add_executable(VoxelGame WIN32
         src_code/main.cpp
         Libraries/glad/src/glad.c
         src_code/Abstraction/abstraction.h
