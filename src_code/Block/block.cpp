@@ -70,12 +70,12 @@ const std::vector<Vertex> Block::BackFace = {
 
 
 void add_face(Block *b, const std::vector<Vertex> &vert,BlockTypes type) {
- Tex t = TextureManager::Textures[type];
+ Tex tex = b->TexAtlas->Textures[type];
 
 
  for(size_t i = 0;i < vert.size();i++) {
   Vertex v = vert[i];
-  v.uv = t.uv[i];
+  v.uv = tex.uv[i];
   b->mesh.push_back(v);
  }
 }

@@ -26,7 +26,9 @@ add_executable(VoxelGame WIN32
 target_include_directories(VoxelGame PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw-3.4/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glad/include"     # Keep this so main.cpp works
-        "${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glad/src"             # ADD THIS so glad.c works
+        "${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glad/src"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Shaders"
 )
 # Link libraries
 target_link_libraries(VoxelGame glfw)

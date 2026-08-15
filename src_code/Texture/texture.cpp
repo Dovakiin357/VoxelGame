@@ -2,55 +2,54 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Texture/stb_image.h"
 
-std::unordered_map<BlockTypes,Tex> TextureManager::Textures = {};
-std::unordered_map<BlockTypes,std::string> TextureManager::texpaths = {
-    {Grass,"Resources/grass.jpg"},{DirtGrass,"Resources/dirt_grass.jpg"},
-    {Dirt,"Resources/dirt.jpg"},{Gengar,"Resources/download.jpg"}
-};
 
-void TextureManager::create_textures(std::unordered_map<BlockTypes,std::string> &tex_paths) {
-    for (const auto& [k,v]:tex_paths) {
+
+std::unordered_map<BlockTypes, Tex> create_textures(std::unordered_map<BlockTypes, const std::string> &tex_paths) {
+    stbi_set_flip_vertically_on_load(true);
+    std::unordered_map<BlockTypes,Tex> textures  = {};
+    for (const auto& [block_t,path]:tex_paths) {
         Tex texture;
         texture.Data = stbi_load(
-            v.c_str(),&texture.Width,&texture.Height,
+            path.c_str(),&texture.Width,&texture.Height,
             &texture.nrChannels,0
             );
         if (texture.Data != nullptr) {
-            TextureManager::Textures[k] = texture;
+            textures[block_t] = texture;
         }
         else
-            std::cout << "Couldnt load Texture:" << v;
+            std::cout << "Couldnt load Texture:" << path;
+    }
+    return textures;
+}
+
+
+void free_texture_data(std::unordered_map<BlockTypes, Tex> &textures) {
+    for ( auto &[block_t,tex]:textures) {
+        if (tex.Data != nullptr) {
+            stbi_image_free(tex.Data);
+            tex.Data = nullptr;
+        }
+        else std::cout << "Data is nullptr";
     }
 }
 
-void TextureManager::free_textures() {
-    for (auto &pair:TextureManager::Textures) {
-        if (pair.second.Data != nullptr)
-            stbi_image_free(pair.second.Data);
-        pair.second.Data = nullptr;
-    }
-}
-
-TextureManager::TextureManager() {
-    stbi_set_flip_vertically_on_load(true);
-    create_textures(TextureManager::texpaths);
-}
 
 void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Tex> &textures) {
     AtlasHeight = 0;
-    for (auto &[typ,t]:textures) {
-        AtlasWidth += t.Width;
-        if (t.Height > AtlasHeight)
-            AtlasHeight = t.Height;
+    for (auto &[block_t,tex]:textures) {
+        AtlasWidth += tex.Width;
+        if (tex.Height > AtlasHeight)
+            AtlasHeight = tex.Height;
     }
     std::cout << AtlasWidth;
 }
 
 void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
+
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     int Yoffset = 0;
     int Xoffset = 0;
-    for (auto &[typ,tex]:textures) {
+    for (auto &[block_t,tex]:textures) {
         if (tex.Data != nullptr) {
             glTexSubImage2D(GL_TEXTURE_2D,0,Xoffset,Yoffset,
             tex.Width,tex.Height,GL_RGB,GL_UNSIGNED_BYTE,
@@ -67,7 +66,8 @@ void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
 
 
 
-TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) {
+TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) :Textures(textures) {
+
 
     glGenTextures(1,&Atlas);
     glBindTexture(GL_TEXTURE_2D,Atlas);
@@ -82,7 +82,7 @@ TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) {
         GL_TEXTURE_2D,0,GL_RGB,AtlasWidth,AtlasHeight,
         0,GL_RGB,GL_UNSIGNED_BYTE,nullptr);
     add_textures(textures);
-    TextureManager::free_textures();
+    free_texture_data(textures);
 
 }
 

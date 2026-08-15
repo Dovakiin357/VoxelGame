@@ -49,11 +49,14 @@ int main() {
         return -1;
     }
 
-    TextureManager texture_manager;
-    TextureAtlas texture_atlas(TextureManager::Textures);
+    std::unordered_map<BlockTypes,const std::string> TexPaths = {{Grass,"Resources/grass.jpg"},
+                                                            {DirtGrass,"Resources/dirt_grass.jpg"},
+                                                           {Dirt,"Resources/dirt.jpg"},
+                                                           {Gengar,"Resources/download.jpg"}};
 
+    std::unordered_map<BlockTypes,Tex> Textures = create_textures(TexPaths);
 
-
+    TextureAtlas texture_atlas(Textures);
 
     Block b1(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
     Block b2(glm::vec3(3.0f,0.0f,7.0f),&texture_atlas);
