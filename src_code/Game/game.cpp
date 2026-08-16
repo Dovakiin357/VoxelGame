@@ -7,10 +7,10 @@
 
 
 
-void draw(Block &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime) {
+void draw(Entity e,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,GLuint &atl) {
     auto Model = glm::mat4(1.0f);
 
-    Model = glm::translate(Model, glm::vec3(obj.Pos));
+    Model = glm::translate(Model, glm::vec3(e.Pos));
     Model = glm::scale(Model, glm::vec3(1.0f, 1.0f, 1.0f));
 
     glm::mat4 View = camera.glm_view();
@@ -18,18 +18,18 @@ void draw(Block &obj,int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Cam
     glUniformMatrix4fv(ViewLoc,1,GL_FALSE,glm::value_ptr(View));
 
     glActiveTexture(GL_TEXTURE0 + TextureUnit);
-    glBindTexture(GL_TEXTURE_2D,obj.TexAtlas->Atlas);
+    glBindTexture(GL_TEXTURE_2D,atl);
     glUniform1i(TextureLoc,TextureUnit);
 
-    glBindVertexArray(obj.VAO);
-    glDrawElements(GL_TRIANGLES,(int)Block::Indices.size(),GL_UNSIGNED_INT,nullptr);
+    glBindVertexArray(e.VAO);
+    glDrawElements(GL_TRIANGLES,(int)e.Indices->size(),GL_UNSIGNED_INT,nullptr);
 }
 
 
 
-void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime) {
-    for (auto *obj:Blocks) {
-        draw(*(obj),ModelLoc,TextureLoc,TextureUnit,ViewLoc,camera,DeltaTime);
+void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,GLuint &atl) {
+    for (auto obj:RenderTargets) {
+        draw(obj,ModelLoc,TextureLoc,TextureUnit,ViewLoc,camera,atl);
     }
 }
 

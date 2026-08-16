@@ -55,26 +55,20 @@ int main() {
                                                            {Gengar,"Resources/download.jpg"}};
 
     std::unordered_map<BlockTypes,Tex> Textures = create_textures(TexPaths);
-
     TextureAtlas texture_atlas(Textures);
 
-    Block b1(glm::vec3(0.0f,0.0f,0.0f),&texture_atlas);
-    Block b2(glm::vec3(3.0f,0.0f,7.0f),&texture_atlas);
-    Block b3(glm::vec3(10.0f,7.0f,0.0f),&texture_atlas);
-    Block b4(glm::vec3(0.0f,5.0f,0.0f),&texture_atlas);
-    Block b5(glm::vec3(3.0f,4.0f,0.0f),&texture_atlas);
-    Block b6(glm::vec3(0.0f,5.0f,8.0f),&texture_atlas);
-    Block b7(glm::vec3(3.0f,9.0f,4.0f),&texture_atlas);
+    std::unordered_map<BlockTypes,std::vector<Vertex>> BlockMeshes;
+    BlockMeshes.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
+    BlockMeshes.insert({Grass,make_block_mesh(texture_atlas,Grass)});
+    BlockMeshes.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
+
+    create_blocks(100,BlockMeshes[Gengar]);
 
 
     Camera camera(window);
     Shader shader(VshaderPath,FshaderPath);
 
-
-
     glm::mat4 Proj = glm::perspective(glm::radians(45.0f),(float)SCR_WIDTH/(float)SCR_HEIGHT,0.1f,100.0f);
-
-
 
     int ModelLoc = glGetUniformLocation(shader.ShaderProgram,"model");
     int ProjLoc = glGetUniformLocation(shader.ShaderProgram,"proj");
@@ -100,7 +94,7 @@ int main() {
         LastFrame = CurrentFrame;
 
         camera.camera_movement(DeltaTime);
-        render_game_objects(ModelLoc,TextureLoc,0,ViewLoc,camera,DeltaTime);
+        render_game_objects(ModelLoc,TextureLoc,0,ViewLoc,camera,texture_atlas.Atlas);
 
 
         glfwSwapBuffers(window);

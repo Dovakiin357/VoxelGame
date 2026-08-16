@@ -37,7 +37,7 @@ public:
 
 // inline std::vector<GameObject*> GameObjects;
 
-void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,float DeltaTime);
+void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,GLuint &atl);
 void delete_game_objs();
 
 
