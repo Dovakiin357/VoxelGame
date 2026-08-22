@@ -58,11 +58,12 @@ int main() {
     TextureAtlas texture_atlas(Textures);
 
     std::unordered_map<BlockTypes,std::vector<Vertex>> BlockMeshes;
+
     BlockMeshes.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
     BlockMeshes.insert({Grass,make_block_mesh(texture_atlas,Grass)});
     BlockMeshes.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
 
-    create_blocks(100,BlockMeshes[Gengar]);
+
 
 
     Camera camera(window);
@@ -75,6 +76,8 @@ int main() {
     int ViewLoc = glGetUniformLocation(shader.ShaderProgram,"view");
     int TextureLoc = glGetUniformLocation(shader.ShaderProgram,"Texture");
 
+    Renderer::get_inst().get_mat_loc(ModelLoc,ViewLoc,ProjLoc,TextureLoc);
+
     glClearColor(0.529f, 0.808f, 0.922f,1.0f);
     glEnable(GL_DEPTH_TEST);
 
@@ -82,7 +85,12 @@ int main() {
     float LastFrame = 0.0f;
 
 
+
+
+
     while (!glfwWindowShouldClose(window)) {
+
+        create_blocks(1,BlockMeshes[Grass]);
 
         processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -94,9 +102,8 @@ int main() {
         LastFrame = CurrentFrame;
 
         camera.camera_movement(DeltaTime);
-        render_game_objects(ModelLoc,TextureLoc,0,ViewLoc,camera,texture_atlas.Atlas);
-
-
+        auto v = camera.glm_view();
+        Renderer::get_inst().render(v,Proj,texture_atlas.Atlas);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -104,6 +111,9 @@ int main() {
     glfwTerminate();
     return 0;
 }
+
+
+
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {

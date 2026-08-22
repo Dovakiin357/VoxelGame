@@ -214,10 +214,16 @@ void create_blocks(size_t count,std::vector<Vertex> &Bmesh) {
   20, 21, 22, 22, 23, 20
  };
  static float x_off = 1.0f;
+ Entity e;
+ e.Indices = &Indices;
  for (size_t i = 0;i <= count;i++) {
   GLuint vao;
   set_vao(vao,Bmesh,Indices);
-  RenderTargets.push_back(Entity{vao,glm::vec3(x_off,0.0f,0.0f),&Indices});
+
+  e.VAO = vao;
+  e.Pos = glm::vec3(0.0f,0.0f,x_off);
+
+  Renderer::get_inst().add_render_target(e);
   x_off += 1.0f;
  }
 }

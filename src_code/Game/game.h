@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 #include <vector>
 #include "../Abstraction/abstraction.h"
 #include "../Texture/texture.h"
@@ -8,7 +9,11 @@
 #include "../Block/block.h"
 
 
-
+struct Entity {
+    GLuint VAO;
+    glm::vec3 Pos;
+    std::vector<GLuint> *Indices;
+};
 
 class Camera : public Input{
 private:
@@ -32,12 +37,26 @@ public:
 
 };
 
+class Renderer {
+public:
+    static Renderer& get_inst();
+    void add_render_target(Entity &e);
+    void get_mat_loc(GLuint mloc,GLuint vloc,GLuint projloc,GLuint tloc);
+    void render(glm::mat4 &view,glm::mat4 &proj,GLuint atl);
+private:
+    GLuint ModelLoc,ViewLoc,ProjLoc,TextureLoc;        //locations of mat uniforms in our shader
+    static Renderer RendererInst;
+    std::vector<Entity> RenderTargets;
+
+
+    Renderer();
+
+};
 
 
 
-// inline std::vector<GameObject*> GameObjects;
 
-void render_game_objects(int ModelLoc,int TextureLoc,int TextureUnit,int ViewLoc,Camera &camera,GLuint &atl);
+
 void delete_game_objs();
 
 
