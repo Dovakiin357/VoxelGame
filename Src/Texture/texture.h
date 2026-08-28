@@ -5,7 +5,7 @@
 #include<unordered_map>
 #include "glm-master/glm/vec2.hpp"
 
-enum BlockTypes{Grass,DirtGrass,Dirt,Gengar};
+enum BlockTypes{Air = 0,Grass,DirtGrass,Dirt,Gengar,Stone};
 
 struct Tex {
     int Width = 0;

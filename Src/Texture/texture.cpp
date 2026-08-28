@@ -49,6 +49,7 @@ void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     int Yoffset = 0;
     int Xoffset = 0;
+
     for (auto &[block_t,tex]:textures) {
         if (tex.Data != nullptr) {
             glTexSubImage2D(GL_TEXTURE_2D,0,Xoffset,Yoffset,
@@ -57,11 +58,13 @@ void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
 
             tex.PosInAtlas = glm::vec2(Xoffset,Yoffset);
             tex.uv = get_uv(tex);
+
             Xoffset += tex.Width;
         }
         else std::cout << "tex data is nullptr";
     }
     glGenerateMipmap(GL_TEXTURE_2D);
+
 }
 
 
@@ -71,6 +74,7 @@ TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) :Textu
 
     glGenTextures(1,&Atlas);
     glBindTexture(GL_TEXTURE_2D,Atlas);
+
     create_atlas(textures);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -78,11 +82,18 @@ TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) :Textu
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+
+
     glTexImage2D(
         GL_TEXTURE_2D,0,GL_RGB,AtlasWidth,AtlasHeight,
         0,GL_RGB,GL_UNSIGNED_BYTE,nullptr);
+
+
     add_textures(textures);
+
     free_texture_data(textures);
+
+
 
 }
 

@@ -52,17 +52,21 @@ int main() {
     std::unordered_map<BlockTypes,const std::string> TexPaths = {{Grass,"Resources/grass.jpg"},
                                                             {DirtGrass,"Resources/dirt_grass.jpg"},
                                                            {Dirt,"Resources/dirt.jpg"},
-                                                           {Gengar,"Resources/download.jpg"}};
+                                                           {Gengar,"Resources/download.jpg"},
+                                                           {Stone,"Resources/stone.jpg"}};
+
+
 
     std::unordered_map<BlockTypes,Tex> Textures = create_textures(TexPaths);
     TextureAtlas texture_atlas(Textures);
+
 
     std::unordered_map<BlockTypes,std::vector<Vertex>> BlockMeshes;
 
     BlockMeshes.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
     BlockMeshes.insert({Grass,make_block_mesh(texture_atlas,Grass)});
     BlockMeshes.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
-
+    BlockMeshes.insert({Stone,make_block_mesh(texture_atlas,Stone)});
 
 
 
@@ -85,17 +89,15 @@ int main() {
     float LastFrame = 0.0f;
 
 
-
-
-
     while (!glfwWindowShouldClose(window)) {
 
-        create_blocks(1,BlockMeshes[Grass]);
+
+        create_blocks(1,BlockMeshes[Stone]);
 
         processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(shader.ShaderProgram);
-        glUniformMatrix4fv(ProjLoc,1,GL_FALSE,glm::value_ptr(Proj));
+
 
         auto CurrentFrame = static_cast<float>(glfwGetTime());
         DeltaTime = CurrentFrame - LastFrame;

@@ -9,17 +9,19 @@ include_directories(glm-master)
 include_directories(Libraries)
 
 # Create executable
-add_executable(VoxelGame WIN32
-        src_code/main.cpp
+add_executable(VoxelGame
+        Src/main.cpp
         Libraries/glad/src/glad.c
-        src_code/Abstraction/abstraction.h
-        src_code/Abstraction/abstraction.cpp
-        src_code/Game/game.h
-        src_code/Game/game.cpp
-        src_code/Texture/texture.h
-        src_code/Texture/texture.cpp
-        src_code/Block/block.h
-        src_code/Block/block.cpp
+        Src/Abstraction/abstraction.h
+        Src/Abstraction/abstraction.cpp
+        Src/Game/game.h
+        Src/Game/game.cpp
+        Src/Texture/texture.h
+        Src/Texture/texture.cpp
+        Src/Block/block.h
+        Src/Block/block.cpp
+        Src/Chunk/chunk.h
+        Src/Chunk/chunk.cpp
 )
 
 # FORCE ABSOLUTE PATHS FOR HEADERS
