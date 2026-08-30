@@ -1,6 +1,7 @@
 #include "Abstraction/abstraction.h"
 #include "Game/game.h"
 #include "Texture/texture.h"
+#include "../Src/Chunk/chunk.h"
 #include<cmath>
 #include <filesystem>
 
@@ -90,6 +91,8 @@ int main() {
 
 
     while (!glfwWindowShouldClose(window)) {
+
+        // Chunk(Grass,BlockMeshes);
 
 
         create_blocks(1,BlockMeshes[Stone]);
