@@ -62,12 +62,12 @@ int main() {
     TextureAtlas texture_atlas(Textures);
 
 
-    std::unordered_map<BlockTypes,std::vector<Vertex>> BlockMeshes;
+    std::unordered_map<BlockTypes,std::vector<Vertex>> BlockDatabase;  //contains the meshes for all the blocks
 
-    BlockMeshes.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
-    BlockMeshes.insert({Grass,make_block_mesh(texture_atlas,Grass)});
-    BlockMeshes.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
-    BlockMeshes.insert({Stone,make_block_mesh(texture_atlas,Stone)});
+    BlockDatabase.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
+    BlockDatabase.insert({Grass,make_block_mesh(texture_atlas,Grass)});
+    BlockDatabase.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
+    BlockDatabase.insert({Stone,make_block_mesh(texture_atlas,Stone)});
 
 
 
@@ -91,11 +91,7 @@ int main() {
 
 
     while (!glfwWindowShouldClose(window)) {
-
-        // Chunk(Grass,BlockMeshes);
-
-
-        create_blocks(1,BlockMeshes[Stone]);
+        create_blocks(1,BlockDatabase[Stone]);
 
         processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

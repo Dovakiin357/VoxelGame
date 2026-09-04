@@ -12,7 +12,6 @@
 struct Entity {
     GLuint VAO;
     glm::vec3 Pos;
-    std::vector<GLuint> *Indices;
 };
 
 class Camera : public Input{

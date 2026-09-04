@@ -33,7 +33,7 @@ void Renderer::render(glm::mat4 &view, glm::mat4 &proj, GLuint atl) {
         glUniform1i(TextureLoc,0);
 
         glBindVertexArray(obj.VAO);
-        glDrawElements(GL_TRIANGLES,(int)obj.Indices->size(),GL_UNSIGNED_INT,nullptr);
+        glDrawArrays(GL_TRIANGLES,0,36);
     }
 }
 

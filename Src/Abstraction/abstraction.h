@@ -56,6 +56,6 @@ private:
 
 };
 
-void set_vao(GLuint &vao,std::vector<Vertex> &v,const std::vector<GLuint> &i);
+void set_vao(GLuint &vao,std::vector<Vertex> &v);
 
 

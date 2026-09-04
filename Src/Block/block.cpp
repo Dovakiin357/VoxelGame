@@ -103,9 +103,11 @@
 
 void add_uv_face(Tex &texture, std::vector<Vertex> &mesh,const std::vector<Vertex> &Face) {
 
+ static const std::array<int, 6> uvIndices = { 0, 3, 2, 2, 1, 0 };
+
  for (size_t i = 0;i < Face.size();i++) {
   Vertex v = Face[i];
-  v.uv = texture.uv[i];
+  v.uv = texture.uv[uvIndices[i]];
   mesh.push_back(v);
  }
 
@@ -113,58 +115,61 @@ void add_uv_face(Tex &texture, std::vector<Vertex> &mesh,const std::vector<Verte
 
 
 std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type) {
- // Front Face (+Z)
  static const std::vector<Vertex> FrontFace = {
-  { glm::vec3(0.0f, 0.0f, 1.0f)}, // Index 0: Bottom-Left
-  { glm::vec3(1.0f, 0.0f, 1.0f)}, // Index 1: Bottom-Right
-  { glm::vec3(1.0f, 1.0f, 1.0f)}, // Index 2: Top-Right
-  { glm::vec3(0.0f, 1.0f, 1.0f)}  // Index 3: Top-Left
-
+  { glm::vec3(0.0f, 0.0f, 1.0f) },
+  { glm::vec3(0.0f, 1.0f, 1.0f) },
+  { glm::vec3(1.0f, 1.0f, 1.0f) },
+  { glm::vec3(1.0f, 1.0f, 1.0f) },
+  { glm::vec3(1.0f, 0.0f, 1.0f) },
+  { glm::vec3(0.0f, 0.0f, 1.0f) }
  };
 
-
- // Left Face (-X)
  static const std::vector<Vertex> LeftFace = {
-  { glm::vec3(0.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
-  { glm::vec3(0.0f, 0.0f, 1.0f) }, // 1: Bottom-Right
-  { glm::vec3(0.0f, 1.0f, 1.0f) }, // 2: Top-Right
-  { glm::vec3(0.0f, 1.0f, 0.0f) }  // 3: Top-Left
+  { glm::vec3(0.0f, 0.0f, 0.0f) },
+  { glm::vec3(0.0f, 1.0f, 0.0f) },
+  { glm::vec3(0.0f, 1.0f, 1.0f) },
+  { glm::vec3(0.0f, 1.0f, 1.0f) },
+  { glm::vec3(0.0f, 0.0f, 1.0f) },
+  { glm::vec3(0.0f, 0.0f, 0.0f) }
  };
 
- // Right Face (+X)
  static const std::vector<Vertex> RightFace = {
-  { glm::vec3(1.0f, 0.0f, 1.0f) }, // 0: Bottom-Left
-  { glm::vec3(1.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
-  { glm::vec3(1.0f, 1.0f, 0.0f) }, // 2: Top-Right
-  { glm::vec3(1.0f, 1.0f, 1.0f) }  // 3: Top-Left
+  { glm::vec3(1.0f, 0.0f, 1.0f) },
+  { glm::vec3(1.0f, 1.0f, 1.0f) },
+  { glm::vec3(1.0f, 1.0f, 0.0f) },
+  { glm::vec3(1.0f, 1.0f, 0.0f) },
+  { glm::vec3(1.0f, 0.0f, 0.0f) },
+  { glm::vec3(1.0f, 0.0f, 1.0f) }
  };
 
- // Top Face (+Y)
  static const std::vector<Vertex> TopFace = {
-  { glm::vec3(0.0f, 1.0f, 1.0f) }, // 0: Bottom-Left
-  { glm::vec3(1.0f, 1.0f, 1.0f) }, // 1: Bottom-Right
-  { glm::vec3(1.0f, 1.0f, 0.0f) }, // 2: Top-Right
-  { glm::vec3(0.0f, 1.0f, 0.0f) }  // 3: Top-Left
+  { glm::vec3(0.0f, 1.0f, 1.0f) },
+  { glm::vec3(0.0f, 1.0f, 0.0f) },
+  { glm::vec3(1.0f, 1.0f, 0.0f) },
+  { glm::vec3(1.0f, 1.0f, 0.0f) },
+  { glm::vec3(1.0f, 1.0f, 1.0f) },
+  { glm::vec3(0.0f, 1.0f, 1.0f) }
  };
 
- // Bottom Face (-Y)
  static const std::vector<Vertex> BottomFace = {
-  { glm::vec3(0.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
-  { glm::vec3(1.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
-  { glm::vec3(1.0f, 0.0f, 1.0f) }, // 2: Top-Right
-  { glm::vec3(0.0f, 0.0f, 1.0f) }  // 3: Top-Left
+  { glm::vec3(0.0f, 0.0f, 0.0f) },
+  { glm::vec3(0.0f, 0.0f, 1.0f) },
+  { glm::vec3(1.0f, 0.0f, 1.0f) },
+  { glm::vec3(1.0f, 0.0f, 1.0f) },
+  { glm::vec3(1.0f, 0.0f, 0.0f) },
+  { glm::vec3(0.0f, 0.0f, 0.0f) }
  };
 
  static const std::vector<Vertex> BackFace = {
-  { glm::vec3(1.0f, 0.0f, 0.0f) }, // 0: Bottom-Left
-  { glm::vec3(0.0f, 0.0f, 0.0f) }, // 1: Bottom-Right
-  { glm::vec3(0.0f, 1.0f, 0.0f) }, // 2: Top-Right
-  { glm::vec3(1.0f, 1.0f, 0.0f) }  // 3: Top-Left
+  { glm::vec3(1.0f, 0.0f, 0.0f) },
+  { glm::vec3(1.0f, 1.0f, 0.0f) },
+  { glm::vec3(0.0f, 1.0f, 0.0f) },
+  { glm::vec3(0.0f, 1.0f, 0.0f) },
+  { glm::vec3(0.0f, 0.0f, 0.0f) },
+  { glm::vec3(1.0f, 0.0f, 0.0f) }
  };
 
  std::vector<Vertex> mesh;
-
-
  switch (type) {
   case DirtGrass: {
    Tex DirtTex = ta.Textures[Dirt];
@@ -181,7 +186,7 @@ std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type) {
    break;
   }
   default: {
-   std::cout << "runs";
+
    Tex texture = ta.Textures[type];
    add_uv_face(texture,mesh,FrontFace);
    add_uv_face(texture,mesh,BackFace);
@@ -199,26 +204,12 @@ std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type) {
 }
 
 void create_blocks(size_t count,std::vector<Vertex> &Bmesh) {
- static std::vector<GLuint> Indices = {
-  // Front
-  0, 1, 2, 2, 3, 0,
-  // Back
-  4, 5, 6, 6, 7, 4,
-  // Left
-  8, 9, 10, 10, 11, 8,
-  // Right
-  12, 13, 14, 14, 15, 12,
-  // Top
-  16, 17, 18, 18, 19, 16,
-  // Bottom
-  20, 21, 22, 22, 23, 20
- };
+
  static float x_off = 1.0f;
- Entity e;
- e.Indices = &Indices;
+ Entity e = {};
  for (size_t i = 0;i <= count;i++) {
   GLuint vao;
-  set_vao(vao,Bmesh,Indices);
+  set_vao(vao,Bmesh);
 
   e.VAO = vao;
   e.Pos = glm::vec3(0.0f,0.0f,x_off);
