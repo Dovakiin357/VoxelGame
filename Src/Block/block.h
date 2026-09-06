@@ -14,7 +14,7 @@ std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type);
 void add_uv_face(Tex &texture,std::vector<Vertex> &mesh,const std::vector<Vertex> &Face);
 
 
-void create_blocks(size_t count,std::vector<Vertex> &Bmesh);
+void create_blocks(size_t count,const std::vector<Vertex> &Bmesh);
 
 
 

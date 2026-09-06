@@ -1,5 +1,4 @@
 #pragma once
-#include <optional>
 #include <vector>
 #include "../Abstraction/abstraction.h"
 #include "../Texture/texture.h"
@@ -14,13 +13,25 @@ struct Entity {
     glm::vec3 Pos;
 };
 
+class BlockManager {
+public:
+    static BlockManager& get_inst();
+    void add_block_mesh(BlockTypes t,std::vector<Vertex> bmesh);
+    const std::vector<Vertex>& get_block_mesh(BlockTypes t);  //returns a block mesh from DataBase
+    BlockManager(const BlockManager& other) = delete;
+private:
+    static BlockManager blockmanager;
+    std::unordered_map<BlockTypes,const std::vector<Vertex>> BlockDataBase = {};
+    BlockManager();
+};
+
 class Camera : public Input{
 private:
     float Yaw = -90.0f;
     float Pitch = 0.0f;
     glm::vec3 Dir = glm::vec3(0.0f,0.0f,0.0f);
 
-    glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,10.0f);
+    glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,0.0f);
     const glm::vec3 Up = glm::vec3(0.0f,1.0f,0.0f);
     glm::vec3 CameraFront = glm::vec3(0.0f,0.0f,-1.0f);
     float CameraSpeed = 50.0f;
@@ -42,14 +53,14 @@ public:
     void add_render_target(Entity &e);
     void get_mat_loc(GLuint mloc,GLuint vloc,GLuint projloc,GLuint tloc);
     void render(glm::mat4 &view,glm::mat4 &proj,GLuint atl);
+
+    Renderer(const Renderer& other) = delete;
 private:
     GLuint ModelLoc,ViewLoc,ProjLoc,TextureLoc;        //locations of mat uniforms in our shader
     static Renderer RendererInst;
     std::vector<Entity> RenderTargets;
 
-
     Renderer();
-
 };
 
 

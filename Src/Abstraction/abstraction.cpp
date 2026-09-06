@@ -116,7 +116,7 @@ void Input::mouse_button_callback(GLFWwindow *window, int button, int action, in
     Pinput->IsPressingLeftMouse = (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS);
 }
 
-void set_vao(GLuint &vao, std::vector<Vertex> &v) {
+void set_vao(GLuint &vao,const std::vector<Vertex> &v) {
     GLuint VBO;
 
     glGenVertexArrays(1,&vao);
@@ -131,7 +131,7 @@ void set_vao(GLuint &vao, std::vector<Vertex> &v) {
     // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
     // glBufferData(GL_ELEMENT_ARRAY_BUFFER,i.size() * sizeof(GLuint),i.data(),GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,vert));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,pos));
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(2);

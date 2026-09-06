@@ -62,12 +62,10 @@ int main() {
     TextureAtlas texture_atlas(Textures);
 
 
-    std::unordered_map<BlockTypes,std::vector<Vertex>> BlockDatabase;  //contains the meshes for all the blocks
-
-    BlockDatabase.insert({DirtGrass,make_block_mesh(texture_atlas,DirtGrass)});
-    BlockDatabase.insert({Grass,make_block_mesh(texture_atlas,Grass)});
-    BlockDatabase.insert({Gengar,make_block_mesh(texture_atlas,Gengar)});
-    BlockDatabase.insert({Stone,make_block_mesh(texture_atlas,Stone)});
+    BlockManager::get_inst().add_block_mesh(DirtGrass,make_block_mesh(texture_atlas,DirtGrass));
+    BlockManager::get_inst().add_block_mesh(Grass,make_block_mesh(texture_atlas,Grass));
+    BlockManager::get_inst().add_block_mesh(Gengar,make_block_mesh(texture_atlas,Gengar));
+    BlockManager::get_inst().add_block_mesh(Stone,make_block_mesh(texture_atlas,Stone));
 
 
 
@@ -89,14 +87,18 @@ int main() {
     float DeltaTime = 0.0f;
     float LastFrame = 0.0f;
 
+    Chunk c = {Gengar,glm::vec3(0.0f,0.0f,0.0f)};
+    Chunk c2 = {Gengar,glm::vec3(17.0f,0.0f,0.0f)};
+
+
+
+
+
 
     while (!glfwWindowShouldClose(window)) {
-        create_blocks(1,BlockDatabase[Stone]);
-
         processInput(window);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(shader.ShaderProgram);
-
 
         auto CurrentFrame = static_cast<float>(glfwGetTime());
         DeltaTime = CurrentFrame - LastFrame;

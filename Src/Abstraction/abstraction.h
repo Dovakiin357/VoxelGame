@@ -12,7 +12,7 @@
 #include "glm-master/glm/glm.hpp"
 
 struct Vertex {
-    glm::vec3 vert;
+    glm::vec3 pos;
     glm::vec2 uv = glm::vec2(0.0f,0.0f);
 };
 
@@ -56,6 +56,6 @@ private:
 
 };
 
-void set_vao(GLuint &vao,std::vector<Vertex> &v);
+void set_vao(GLuint &vao,const std::vector<Vertex> &v);
 
 

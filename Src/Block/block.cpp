@@ -203,7 +203,7 @@ std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type) {
 
 }
 
-void create_blocks(size_t count,std::vector<Vertex> &Bmesh) {
+void create_blocks(size_t count,const std::vector<Vertex> &Bmesh) {
 
  static float x_off = 1.0f;
  Entity e = {};
