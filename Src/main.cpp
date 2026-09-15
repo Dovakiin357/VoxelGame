@@ -2,6 +2,7 @@
 #include "Game/game.h"
 #include "Texture/texture.h"
 #include "../Src/Chunk/chunk.h"
+#include"Camera/camera.h"
 #include<cmath>
 #include <filesystem>
 

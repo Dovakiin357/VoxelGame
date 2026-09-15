@@ -22,6 +22,8 @@ add_executable(VoxelGame
         Src/Block/block.cpp
         Src/Chunk/chunk.h
         Src/Chunk/chunk.cpp
+        Src/Camera/camera.h
+        Src/Camera/camera.cpp
 )
 
 # FORCE ABSOLUTE PATHS FOR HEADERS
