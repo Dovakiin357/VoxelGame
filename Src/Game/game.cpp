@@ -11,7 +11,7 @@ Renderer::Renderer() = default;
 Renderer Renderer::RendererInst;
 Renderer &Renderer::get_inst() {return RendererInst;}
 
-void Renderer::add_render_target(Entity &e) {RenderTargets.push_back(e);}
+void Renderer::add_render_target(GameObj &obj) {RenderTargets.push_back(obj);}
 void Renderer::get_mat_loc(GLuint mloc, GLuint vloc, GLuint projloc,GLuint tloc) {
     ModelLoc = mloc;
     ViewLoc = vloc;

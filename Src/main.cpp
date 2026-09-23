@@ -89,7 +89,7 @@ int main() {
     float LastFrame = 0.0f;
 
     Chunk c = {Gengar,glm::vec3(0.0f,0.0f,0.0f)};
-    Chunk c2 = {Gengar,glm::vec3(17.0f,0.0f,0.0f)};
+    Chunk c2 = {Stone,glm::vec3(17.0f,0.0f,0.0f)};
 
 
 

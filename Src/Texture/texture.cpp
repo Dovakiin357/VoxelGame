@@ -41,7 +41,6 @@ void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Tex> &textures) {
         if (tex.Height > AtlasHeight)
             AtlasHeight = tex.Height;
     }
-
 }
 
 void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {

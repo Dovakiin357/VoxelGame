@@ -8,7 +8,7 @@
 #include "../Block/block.h"
 
 
-struct Entity {
+struct GameObj {
     GLuint VAO;
     glm::vec3 Pos;
 };
@@ -20,7 +20,7 @@ struct Entity {
 class Renderer {
 public:
     static Renderer& get_inst();
-    void add_render_target(Entity &e);
+    void add_render_target(GameObj &obj);
     void get_mat_loc(GLuint mloc,GLuint vloc,GLuint projloc,GLuint tloc);
     void render(glm::mat4 &view,glm::mat4 &proj,GLuint atl);
 
@@ -28,7 +28,7 @@ public:
 private:
     GLuint ModelLoc,ViewLoc,ProjLoc,TextureLoc;        //locations of mat uniforms in our shader
     static Renderer RendererInst;
-    std::vector<Entity> RenderTargets;
+    std::vector<GameObj> RenderTargets;
 
     Renderer();
 };

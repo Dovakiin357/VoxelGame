@@ -10,9 +10,9 @@ Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
     for (int i = 0;i < CHUNK_X;i++) {
         for (int j = 0;j < CHUNK_Y;j++) {
             for (int k = 0;k < CHUNK_Z;k++) {
-                chunk[i][j][k].Type = t;
+                ChunkBlocks[i][j][k].Type = t;
 
-                if (chunk[i][j][k].Type != Air) {
+                if (ChunkBlocks[i][j][k].Type != Air) {
                     glm::vec3 offset(i,j,k);
                     for (size_t s = 0;s < Bmesh.size();s++) {
                         Vertex v = Bmesh[s];
@@ -27,8 +27,8 @@ Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
     std::cout << ChunkVertices.size() << std::endl;
 
     set_chunk_vao();
-    ChunkEntity = {VAO,WorldPos};
-    if (VAO != 0) Renderer::get_inst().add_render_target(ChunkEntity);
+    ChunkObj = {VAO,WorldPos};
+    if (VAO != 0) Renderer::get_inst().add_render_target(ChunkObj);
 
 }
 

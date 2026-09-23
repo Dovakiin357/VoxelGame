@@ -8,7 +8,7 @@ private:
     float Pitch = 0.0f;
     glm::vec3 Dir = glm::vec3(0.0f,0.0f,0.0f);
 
-    glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,0.0f);
+    glm::vec3 CameraPos = glm::vec3(15.0f,17.0f,50.0f);
     const glm::vec3 Up = glm::vec3(0.0f,1.0f,0.0f);
     glm::vec3 CameraFront = glm::vec3(0.0f,0.0f,-1.0f);
     float CameraSpeed = 50.0f;

@@ -120,7 +120,7 @@ std::vector<Vertex> make_block_mesh(TextureAtlas &ta,BlockTypes type) {
 void create_blocks(size_t count,const std::vector<Vertex> &Bmesh) {
 
  static float x_off = 1.0f;
- Entity e = {};
+ GameObj e = {};
  for (size_t i = 0;i <= count;i++) {
   GLuint vao;
   set_vao(vao,Bmesh);
