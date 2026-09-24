@@ -8,6 +8,7 @@ constexpr int CHUNK_Z = 16;
 constexpr int CHUNK_VERTEX_COUNT = CHUNK_X * CHUNK_Y * CHUNK_Z * 36;
 
 
+
 struct Chunk {
     Block ChunkBlocks[CHUNK_X][CHUNK_Y][CHUNK_Z];
     glm::vec3 WorldPos;
@@ -18,6 +19,8 @@ struct Chunk {
 
     Chunk(BlockTypes t,glm::vec3 pos);
     void set_chunk_vao();
+private:
+    // void cull_face();
 
 
 };

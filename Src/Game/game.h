@@ -14,9 +14,6 @@ struct GameObj {
 };
 
 
-
-
-
 class Renderer {
 public:
     static Renderer& get_inst();

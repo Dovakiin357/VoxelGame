@@ -2,7 +2,14 @@
 #include "chunk.h"
 
 
-
+const std::array<const glm::ivec3,6> Directions = {
+    glm::ivec3(1,0,0),
+    glm::ivec3(-1,0,0),
+    glm::ivec3(0,1,0),
+    glm::ivec3(0,-1,0),
+    glm::ivec3(0,0,1),
+    glm::ivec3(0,0,-1),
+};
 
 Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
      std::vector<Vertex> Bmesh = BlockManager::get_inst().get_block_mesh(t);
@@ -11,9 +18,8 @@ Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
         for (int j = 0;j < CHUNK_Y;j++) {
             for (int k = 0;k < CHUNK_Z;k++) {
                 ChunkBlocks[i][j][k].Type = t;
-
                 if (ChunkBlocks[i][j][k].Type != Air) {
-                    glm::vec3 offset(i,j,k);
+                    glm::vec3 offset(i,-j,k);
                     for (size_t s = 0;s < Bmesh.size();s++) {
                         Vertex v = Bmesh[s];
                         v.pos += offset;

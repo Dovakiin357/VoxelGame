@@ -43,6 +43,8 @@ void Camera::camera_movement(float delta_time) {
     camera_cursor_mov();
     CameraFront = glm::normalize(Dir);
 
+    std::cout << CameraPos.x;
+
 
     if (glfwGetKey(Window, GLFW_KEY_W) == GLFW_PRESS)
         CameraPos += Speed * CameraFront;
