@@ -9,6 +9,12 @@ struct Block {
     BlockTypes Type = Air;  //let default be air
 };
 
+enum BLockFace {
+    RightFace,LeftFace,
+    TopFace,BottomFace,
+    FrontFace,Backface,
+};
+
 class BlockManager {
 public:
     static BlockManager& get_inst();

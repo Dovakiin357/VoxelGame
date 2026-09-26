@@ -19,8 +19,6 @@ struct Chunk {
 
     Chunk(BlockTypes t,glm::vec3 pos);
     void set_chunk_vao();
-private:
-    // void cull_face();
 
 
 };

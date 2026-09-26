@@ -3,38 +3,54 @@
 
 
 const std::array<const glm::ivec3,6> Directions = {
-    glm::ivec3(1,0,0),
-    glm::ivec3(-1,0,0),
-    glm::ivec3(0,1,0),
-    glm::ivec3(0,-1,0),
     glm::ivec3(0,0,1),
     glm::ivec3(0,0,-1),
+    glm::ivec3(0,1,0),
+    glm::ivec3(0,-1,0),
+    glm::ivec3(1,0,0),
+    glm::ivec3(-1,0,0),
 };
 
 Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
-     std::vector<Vertex> Bmesh = BlockManager::get_inst().get_block_mesh(t);
+     const auto &Bmesh = BlockManager::get_inst().get_block_mesh(t);
     ChunkVertices.reserve(CHUNK_VERTEX_COUNT);
     for (int i = 0;i < CHUNK_X;i++) {
         for (int j = 0;j < CHUNK_Y;j++) {
             for (int k = 0;k < CHUNK_Z;k++) {
                 ChunkBlocks[i][j][k].Type = t;
-                if (ChunkBlocks[i][j][k].Type != Air) {
-                    glm::vec3 offset(i,-j,k);
-                    for (size_t s = 0;s < Bmesh.size();s++) {
-                        Vertex v = Bmesh[s];
-                        v.pos += offset;
-                        ChunkVertices.push_back(v);
-                    }
+                if (ChunkBlocks[i][j][k].Type == Air) continue;
+                // CHECKING Z DIRECTION
+                if (k < CHUNK_Z-1 && ChunkBlocks[i][j][k+1].Type == Air) {
+                    std::cout << "add Front Face";
+                }
+                if (k > 0 && ChunkBlocks[i][j][k-1].Type == Air) {
+                    std::cout << "add back face";
+                }
+
+                // CHECKING J DIRECTION
+                if (j < CHUNK_Y-1 && ChunkBlocks[i][j+1][k].Type == Air) {
+                    std::cout << "add Front Face";
+                }
+                if (j > 0 && ChunkBlocks[i][j-1][k].Type == Air) {
+                    std::cout << "add back face";
+                }
+
+                //CHECKING I DIRECTION
+                if (i < CHUNK_X-1 && ChunkBlocks[i+1][j][k].Type == Air) {
+                    std::cout << "add Front Face";
+                }
+                if (i > 0 && ChunkBlocks[i-1][j][k].Type == Air) {
+                    std::cout << "add back face";
                 }
             }
         }
     }
 
-    std::cout << ChunkVertices.size() << std::endl;
-
-    set_chunk_vao();
-    ChunkObj = {VAO,WorldPos};
-    if (VAO != 0) Renderer::get_inst().add_render_target(ChunkObj);
+    // std::cout << ChunkVertices.size() << std::endl;
+    //
+    // set_chunk_vao();
+    // ChunkObj = {VAO,WorldPos};
+    // if (VAO != 0) Renderer::get_inst().add_render_target(ChunkObj);
 
 }
 
