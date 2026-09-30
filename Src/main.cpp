@@ -63,10 +63,10 @@ int main() {
     TextureAtlas texture_atlas(Textures);
 
 
-    BlockManager::get_inst().add_block_mesh(DirtGrass,create_block_mesh(texture_atlas,DirtGrass));
-    BlockManager::get_inst().add_block_mesh(Grass,create_block_mesh(texture_atlas,Grass));
-    BlockManager::get_inst().add_block_mesh(Gengar,create_block_mesh(texture_atlas,Gengar));
-    BlockManager::get_inst().add_block_mesh(Stone,create_block_mesh(texture_atlas,Stone));
+    BlockManager::get_inst().add_block_mesh(DirtGrass,BlockMesh{DirtGrass,texture_atlas});
+    BlockManager::get_inst().add_block_mesh(Grass,BlockMesh{Grass,texture_atlas});
+    // BlockManager::get_inst().add_block_mesh(Gengar,create_block_mesh(texture_atlas,Gengar));
+    // BlockManager::get_inst().add_block_mesh(Stone,create_block_mesh(texture_atlas,Stone));
 
 
 
