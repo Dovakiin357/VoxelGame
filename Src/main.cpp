@@ -28,8 +28,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 int main() {
-
-
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -65,8 +63,9 @@ int main() {
 
     BlockManager::get_inst().add_block_mesh(DirtGrass,BlockMesh{DirtGrass,texture_atlas});
     BlockManager::get_inst().add_block_mesh(Grass,BlockMesh{Grass,texture_atlas});
-    // BlockManager::get_inst().add_block_mesh(Gengar,create_block_mesh(texture_atlas,Gengar));
-    // BlockManager::get_inst().add_block_mesh(Stone,create_block_mesh(texture_atlas,Stone));
+    BlockManager::get_inst().add_block_mesh(Dirt,BlockMesh{Dirt,texture_atlas});
+    BlockManager::get_inst().add_block_mesh(Stone,BlockMesh{Stone,texture_atlas});
+    BlockManager::get_inst().add_block_mesh(Gengar,BlockMesh{Gengar,texture_atlas});
 
 
 
@@ -88,7 +87,9 @@ int main() {
     float DeltaTime = 0.0f;
     float LastFrame = 0.0f;
 
-    Chunk c = {Gengar,glm::vec3(0.0f,0.0f,0.0f)};
+    // Chunk c2 = {DirtGrass,glm::vec3(16.0f,0.0f,0.0f)};
+    Chunk c = {Dirt,glm::vec3(0.0f,0.0f,0.0f)};
+
 
 
 

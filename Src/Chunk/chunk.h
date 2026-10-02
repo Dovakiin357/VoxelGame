@@ -1,6 +1,5 @@
 #pragma once
 #include "../Block/block.h"
-
 constexpr int CHUNK_X = 16;
 constexpr int CHUNK_Y = 16;
 constexpr int CHUNK_Z = 16;

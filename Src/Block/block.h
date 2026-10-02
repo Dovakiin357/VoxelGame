@@ -15,10 +15,13 @@ enum BlockFace {
     FrontFace,Backface,
 };
 
-static size_t FACE_VERTEX_COUNT = 6;
+
 
 struct Face {
 public:
+
+    static size_t FACE_VERTEX_COUNT;
+
     static const std::array<Vertex,6>LeftFaceVertPos;
     static const std::array<Vertex,6>RightFaceVertPos;
     static const std::array<Vertex,6>TopFaceVertPos;
@@ -32,13 +35,13 @@ public:
 };
 
 struct BlockMesh {
-    Face LeftFaceVert{BlockFace::LeftFace, Face::LeftFaceVertPos};
-    Face RightFaceVert{BlockFace::RightFace, Face::RightFaceVertPos};
-    Face TopFaceVert{BlockFace::TopFace, Face::TopFaceVertPos};
+    Face LeftFaceMesh{BlockFace::LeftFace, Face::LeftFaceVertPos};
+    Face RightFaceMesh{BlockFace::RightFace, Face::RightFaceVertPos};
+    Face TopFaceMesh{BlockFace::TopFace, Face::TopFaceVertPos};
 
-    Face BottomFaceVert{BlockFace::BottomFace, Face::BottomFaceVertPos};
-    Face FrontFaceVert{BlockFace::FrontFace, Face::FrontFaceVertPos};
-    Face BackFaceVert{BlockFace::Backface, Face::BackFaceVertPos};
+    Face BottomFaceMesh{BlockFace::BottomFace, Face::BottomFaceVertPos};
+    Face FrontFaceMesh{BlockFace::FrontFace, Face::FrontFaceVertPos};
+    Face BackFaceMesh{BlockFace::Backface, Face::BackFaceVertPos};
 
     BlockTypes BlockType;
     std::vector<Vertex> MeshData;

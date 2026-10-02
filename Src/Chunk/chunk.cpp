@@ -42,18 +42,20 @@ Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
                 // }
                 // if (i > 0 && ChunkBlocks[i-1][j][k].Type == Air) {
                 //     std::cout << "add back face";
-                // for (const Vertex v:Bmesh.MeshData){
-                //     ChunkVertices.emplace_back()
-                // }
+                for (const Vertex v:Bmesh.MeshData){
+                    Vertex ChunkV = v;
+                    ChunkV.pos += offset;
+                    ChunkVertices.emplace_back(ChunkV);
+                }
             }
         }
     }
 
-    // std::cout << ChunkVertices.size() << std::endl;
-    //
-    // set_chunk_vao();
-    // ChunkObj = {VAO,WorldPos};
-    // if (VAO != 0) Renderer::get_inst().add_render_target(ChunkObj);
+    std::cout << ChunkVertices.size() << std::endl;
+
+    set_chunk_vao();
+    ChunkObj = {VAO,WorldPos};
+    if (VAO != 0) Renderer::get_inst().add_render_target(ChunkObj);
 
 }
 
