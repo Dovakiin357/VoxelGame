@@ -46,19 +46,19 @@ struct BlockMesh {
     BlockTypes BlockType;
     std::vector<Vertex> MeshData;
 
-    BlockMesh(BlockTypes types,TextureAtlas &ta);
+    BlockMesh(BlockTypes types,const TextureAtlas &ta);
 };
 
 
 class BlockManager {
 public:
     static BlockManager& get_inst();
-    void add_block_mesh(BlockTypes t,BlockMesh bmesh); //adds a block mesh to database
+    void add_block_mesh(BlockTypes t,const TextureAtlas &ta); //creates a block mesh and adds it to database
     const BlockMesh& get_block_mesh(BlockTypes t);  //returns a block mesh from DataBase
     BlockManager(const BlockManager& other) = delete;
 private:
     static BlockManager blockmanager;
-    std::unordered_map<BlockTypes,const BlockMesh> BlockDataBase = {};
+    std::unordered_map<BlockTypes,BlockMesh> BlockDataBase = {};
     BlockManager();
 };
 

@@ -18,30 +18,8 @@ Chunk::Chunk(BlockTypes t,glm::vec3 pos) :WorldPos(pos) {
         for (int j = 0;j < CHUNK_Y;j++) {
             for (int k = 0;k < CHUNK_Z;k++) {
                 ChunkBlocks[i][j][k].Type = t;
+
                 glm::vec3 offset(i,-j,k);
-                // if (ChunkBlocks[i][j][k].Type == Air) continue;
-                // // CHECKING Z DIRECTION
-                // if (k < CHUNK_Z-1 && ChunkBlocks[i][j][k+1].Type == Air) {
-                //     std::cout << "add Front Face";
-                // }
-                // if (k > 0 && ChunkBlocks[i][j][k-1].Type == Air) {
-                //     std::cout << "add back face";
-                // }
-                //
-                // // CHECKING J DIRECTION
-                // if (j < CHUNK_Y-1 && ChunkBlocks[i][j+1][k].Type == Air) {
-                //     std::cout << "add Front Face";
-                // }
-                // if (j > 0 && ChunkBlocks[i][j-1][k].Type == Air) {
-                //     std::cout << "add back face";
-                // }
-                //
-                // //CHECKING I DIRECTION
-                // if (i < CHUNK_X-1 && ChunkBlocks[i+1][j][k].Type == Air) {
-                //     std::cout << "add Front Face";
-                // }
-                // if (i > 0 && ChunkBlocks[i-1][j][k].Type == Air) {
-                //     std::cout << "add back face";
                 for (const Vertex v:Bmesh.MeshData){
                     Vertex ChunkV = v;
                     ChunkV.pos += offset;

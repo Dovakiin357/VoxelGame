@@ -61,11 +61,11 @@ int main() {
     TextureAtlas texture_atlas(Textures);
 
 
-    BlockManager::get_inst().add_block_mesh(DirtGrass,BlockMesh{DirtGrass,texture_atlas});
-    BlockManager::get_inst().add_block_mesh(Grass,BlockMesh{Grass,texture_atlas});
-    BlockManager::get_inst().add_block_mesh(Dirt,BlockMesh{Dirt,texture_atlas});
-    BlockManager::get_inst().add_block_mesh(Stone,BlockMesh{Stone,texture_atlas});
-    BlockManager::get_inst().add_block_mesh(Gengar,BlockMesh{Gengar,texture_atlas});
+    BlockManager::get_inst().add_block_mesh(DirtGrass,texture_atlas);
+    BlockManager::get_inst().add_block_mesh(Grass,texture_atlas);
+    BlockManager::get_inst().add_block_mesh(Dirt,texture_atlas);
+    BlockManager::get_inst().add_block_mesh(Stone,texture_atlas);
+    BlockManager::get_inst().add_block_mesh(Gengar,texture_atlas);
 
 
 
@@ -87,8 +87,34 @@ int main() {
     float DeltaTime = 0.0f;
     float LastFrame = 0.0f;
 
-    // Chunk c2 = {DirtGrass,glm::vec3(16.0f,0.0f,0.0f)};
-    Chunk c = {Dirt,glm::vec3(0.0f,0.0f,0.0f)};
+
+    // Row 1 (Z = 0.0f)
+    Chunk c1  = { DirtGrass, glm::vec3(0.0f,  0.0f, 0.0f) };
+    Chunk c2  = { DirtGrass, glm::vec3(16.0f, 0.0f, 0.0f) };
+    Chunk c3  = { DirtGrass, glm::vec3(32.0f, 0.0f, 0.0f) };
+    Chunk c4  = { DirtGrass, glm::vec3(48.0f, 0.0f, 0.0f) };
+    Chunk c5  = { DirtGrass, glm::vec3(64.0f, 0.0f, 0.0f) };
+
+    // Row 2 (Z = 16.0f)
+    Chunk c6  = { DirtGrass, glm::vec3(0.0f,  0.0f, 16.0f) };
+    Chunk c7  = { DirtGrass, glm::vec3(16.0f, 0.0f, 16.0f) };
+    Chunk c8  = { DirtGrass, glm::vec3(32.0f, 0.0f, 16.0f) };
+    Chunk c9  = { DirtGrass, glm::vec3(48.0f, 0.0f, 16.0f) };
+    Chunk c10 = { DirtGrass, glm::vec3(64.0f, 0.0f, 16.0f) };
+
+    // Row 3 (Z = 32.0f)
+    Chunk c11 = { DirtGrass, glm::vec3(0.0f,  0.0f, 32.0f) };
+    Chunk c12 = { DirtGrass, glm::vec3(16.0f, 0.0f, 32.0f) };
+    Chunk c13 = { DirtGrass, glm::vec3(32.0f, 0.0f, 32.0f) };
+    Chunk c14 = { DirtGrass, glm::vec3(48.0f, 0.0f, 32.0f) };
+    Chunk c15 = { DirtGrass, glm::vec3(64.0f, 0.0f, 32.0f) };
+
+    // Row 4 (Z = 48.0f)
+    Chunk c16 = { DirtGrass, glm::vec3(0.0f,  0.0f, 48.0f) };
+    Chunk c17 = { DirtGrass, glm::vec3(16.0f, 0.0f, 48.0f) };
+    Chunk c18 = { DirtGrass, glm::vec3(32.0f, 0.0f, 48.0f) };
+    Chunk c19 = { DirtGrass, glm::vec3(48.0f, 0.0f, 48.0f) };
+    Chunk c20 = { DirtGrass, glm::vec3(64.0f, 0.0f, 48.0f) };
 
 
 

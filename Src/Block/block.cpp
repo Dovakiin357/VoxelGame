@@ -5,10 +5,9 @@ BlockManager::BlockManager() = default;
 BlockManager BlockManager::blockmanager;
 BlockManager &BlockManager::get_inst() {return blockmanager;}
 
-void BlockManager::add_block_mesh(BlockTypes t,BlockMesh bmesh) {
- BlockDataBase.insert({t,bmesh});
+void BlockManager::add_block_mesh(BlockTypes t, const TextureAtlas &ta) {
+    BlockDataBase.emplace(t,BlockMesh{t,ta});
 }
-
 
 const BlockMesh& BlockManager::get_block_mesh(BlockTypes t) {
  return BlockDataBase.at(t);
@@ -81,7 +80,7 @@ void add_face_vertices(Tex &texture, std::vector<Vertex> &mesh,  Face &face) {
     }
 }
 
-BlockMesh::BlockMesh(BlockTypes types,TextureAtlas &ta) :BlockType(types) {
+BlockMesh::BlockMesh(BlockTypes types,const TextureAtlas &ta) :BlockType(types) {
     // MeshData.reserve(FACE_VERTEX_COUNT * 6);
     switch (types) {
         default: {
