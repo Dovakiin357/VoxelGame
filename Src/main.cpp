@@ -90,24 +90,24 @@ int main() {
 
     // Row 1 (Z = 0.0f)
     Chunk c1  = { DirtGrass, glm::vec3(0.0f,  0.0f, 0.0f) };
-    Chunk c2  = { DirtGrass, glm::vec3(16.0f, 0.0f, 0.0f) };
-    Chunk c3  = { DirtGrass, glm::vec3(32.0f, 0.0f, 0.0f) };
-    Chunk c4  = { DirtGrass, glm::vec3(48.0f, 0.0f, 0.0f) };
-    Chunk c5  = { DirtGrass, glm::vec3(64.0f, 0.0f, 0.0f) };
+    Chunk c2  = { Dirt, glm::vec3(16.0f, 0.0f, 0.0f) };
+    Chunk c3  = { Grass, glm::vec3(32.0f, 0.0f, 0.0f) };
+    Chunk c4  = { Stone, glm::vec3(48.0f, 0.0f, 0.0f) };
+    Chunk c5  = { Dirt, glm::vec3(64.0f, 0.0f, 0.0f) };
 
     // Row 2 (Z = 16.0f)
     Chunk c6  = { DirtGrass, glm::vec3(0.0f,  0.0f, 16.0f) };
-    Chunk c7  = { DirtGrass, glm::vec3(16.0f, 0.0f, 16.0f) };
+    Chunk c7  = { Stone, glm::vec3(16.0f, 0.0f, 16.0f) };
     Chunk c8  = { DirtGrass, glm::vec3(32.0f, 0.0f, 16.0f) };
-    Chunk c9  = { DirtGrass, glm::vec3(48.0f, 0.0f, 16.0f) };
-    Chunk c10 = { DirtGrass, glm::vec3(64.0f, 0.0f, 16.0f) };
+    Chunk c9  = { Gengar, glm::vec3(48.0f, 0.0f, 16.0f) };
+    Chunk c10 = { Grass, glm::vec3(64.0f, 0.0f, 16.0f) };
 
     // Row 3 (Z = 32.0f)
-    Chunk c11 = { DirtGrass, glm::vec3(0.0f,  0.0f, 32.0f) };
-    Chunk c12 = { DirtGrass, glm::vec3(16.0f, 0.0f, 32.0f) };
+    Chunk c11 = { Gengar, glm::vec3(0.0f,  0.0f, 32.0f) };
+    Chunk c12 = { Grass, glm::vec3(16.0f, 0.0f, 32.0f) };
     Chunk c13 = { DirtGrass, glm::vec3(32.0f, 0.0f, 32.0f) };
-    Chunk c14 = { DirtGrass, glm::vec3(48.0f, 0.0f, 32.0f) };
-    Chunk c15 = { DirtGrass, glm::vec3(64.0f, 0.0f, 32.0f) };
+    Chunk c14 = { Stone, glm::vec3(48.0f, 0.0f, 32.0f) };
+    Chunk c15 = { Gengar, glm::vec3(64.0f, 0.0f, 32.0f) };
 
     // Row 4 (Z = 48.0f)
     Chunk c16 = { DirtGrass, glm::vec3(0.0f,  0.0f, 48.0f) };
