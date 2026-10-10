@@ -11,6 +11,7 @@
 struct GameObj {
     GLuint VAO;
     glm::vec3 Pos;
+    size_t VertexCount;
 };
 
 

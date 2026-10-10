@@ -12,7 +12,7 @@ struct Block {
 enum BlockFace {
     RightFace,LeftFace,
     TopFace,BottomFace,
-    FrontFace,Backface,
+    FrontFace,BackFace,
 };
 
 
@@ -41,12 +41,13 @@ struct BlockMesh {
 
     Face BottomFaceMesh{BlockFace::BottomFace, Face::BottomFaceVertPos};
     Face FrontFaceMesh{BlockFace::FrontFace, Face::FrontFaceVertPos};
-    Face BackFaceMesh{BlockFace::Backface, Face::BackFaceVertPos};
+    Face BackFaceMesh{BlockFace::BackFace, Face::BackFaceVertPos};
 
     BlockTypes BlockType;
     std::vector<Vertex> MeshData;
 
     BlockMesh(BlockTypes types,const TextureAtlas &ta);
+    BlockMesh(const BlockMesh &other) = default;
 };
 
 
@@ -54,7 +55,8 @@ class BlockManager {
 public:
     static BlockManager& get_inst();
     void add_block_mesh(BlockTypes t,const TextureAtlas &ta); //creates a block mesh and adds it to database
-    const BlockMesh& get_block_mesh(BlockTypes t);  //returns a block mesh from DataBase
+    const BlockMesh& get_block_mesh(BlockTypes t);//returns a block mesh from DataBase
+    const std::array<Vertex,6>& get_block_mesh_face(BlockTypes type,BlockFace face_type);
     BlockManager(const BlockManager& other) = delete;
 private:
     static BlockManager blockmanager;
@@ -69,7 +71,7 @@ std::vector<Vertex> create_block_mesh(TextureAtlas &ta,BlockTypes type);
 // void add_uv_face(Tex &texture,std::vector<Vertex> &mesh,const std::vector<Vertex> &Face);
 
 //mesh refers to the Block mesh on which we are adding the Face Pos data and UV data of "texture"
-void add_face_vertices(Tex &texture,std::vector<Vertex> &mesh, Face &face);
+void add_face_vertices(Texture &texture,std::vector<Vertex> &mesh, Face &face);
 
 // void create_blocks(size_t count,const std::vector<Vertex> &Bmesh);
 

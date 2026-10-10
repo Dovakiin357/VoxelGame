@@ -4,11 +4,11 @@
 
 
 
-std::unordered_map<BlockTypes, Tex> create_textures(std::unordered_map<BlockTypes, const std::string> &tex_paths) {
+std::unordered_map<BlockTypes, Texture> create_textures(std::unordered_map<BlockTypes, const std::string> &tex_paths) {
     stbi_set_flip_vertically_on_load(true);
-    std::unordered_map<BlockTypes,Tex> textures  = {};
+    std::unordered_map<BlockTypes,Texture> textures  = {};
     for (const auto& [block_t,path]:tex_paths) {
-        Tex texture;
+        Texture texture;
         texture.Data = stbi_load(
             path.c_str(),&texture.Width,&texture.Height,
             &texture.nrChannels,0
@@ -23,7 +23,7 @@ std::unordered_map<BlockTypes, Tex> create_textures(std::unordered_map<BlockType
 }
 
 
-void free_texture_data(std::unordered_map<BlockTypes, Tex> &textures) {
+void free_texture_data(std::unordered_map<BlockTypes, Texture> &textures) {
     for ( auto &[block_t,tex]:textures) {
         if (tex.Data != nullptr) {
             stbi_image_free(tex.Data);
@@ -34,7 +34,7 @@ void free_texture_data(std::unordered_map<BlockTypes, Tex> &textures) {
 }
 
 
-void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Tex> &textures) {
+void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Texture> &textures) {
     AtlasHeight = 0;
     for (auto &[block_t,tex]:textures) {
         AtlasWidth += tex.Width;
@@ -43,7 +43,7 @@ void TextureAtlas::create_atlas(std::unordered_map<BlockTypes, Tex> &textures) {
     }
 }
 
-void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
+void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Texture> &textures) {
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     int Yoffset = 0;
@@ -68,7 +68,7 @@ void TextureAtlas::add_textures(std::unordered_map<BlockTypes,Tex> &textures) {
 
 
 
-TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) :Textures(textures) {
+TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Texture> &textures) :Textures(textures) {
 
 
     glGenTextures(1,&Atlas);
@@ -97,7 +97,7 @@ TextureAtlas::TextureAtlas(std::unordered_map<BlockTypes, Tex> &textures) :Textu
 }
 
 
-std::array<glm::vec2, 4> TextureAtlas::get_uv(const Tex &t) {
+std::array<glm::vec2, 4> TextureAtlas::get_uv(const Texture &t) {
     glm::vec2 uvTopRight,uvBottomLeft,uvTopLeft,uvBottomRight;
     uvBottomLeft = glm::vec2(
        t.PosInAtlas.x/(float)AtlasWidth,

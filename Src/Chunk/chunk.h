@@ -4,7 +4,7 @@ constexpr int CHUNK_X = 16;
 constexpr int CHUNK_Y = 16;
 constexpr int CHUNK_Z = 16;
 
-constexpr int CHUNK_VERTEX_COUNT = CHUNK_X * CHUNK_Y * CHUNK_Z * 36;
+// constexpr int CHUNK_VERTEX_COUNT = CHUNK_X * CHUNK_Y * CHUNK_Z * 36;
 
 
 
@@ -18,6 +18,5 @@ struct Chunk {
 
     Chunk(BlockTypes t,glm::vec3 pos);
     void set_chunk_vao();
-
-
+    void add_face_vertices_chunk (const std::array<Vertex,6> &vert,glm::vec3 &offset);
 };

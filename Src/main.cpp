@@ -57,7 +57,7 @@ int main() {
 
 
 
-    std::unordered_map<BlockTypes,Tex> Textures = create_textures(TexPaths);
+    std::unordered_map<BlockTypes,Texture> Textures = create_textures(TexPaths);
     TextureAtlas texture_atlas(Textures);
 
 

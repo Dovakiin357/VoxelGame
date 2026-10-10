@@ -13,6 +13,21 @@ const BlockMesh& BlockManager::get_block_mesh(BlockTypes t) {
  return BlockDataBase.at(t);
 }
 
+const std::array<Vertex, 6> &BlockManager::get_block_mesh_face(BlockTypes type, BlockFace face_type) {
+    switch (face_type) {
+        case LeftFace:   return (BlockDataBase.at(type)).LeftFaceMesh.FaceVertices;
+        case RightFace:  return (BlockDataBase.at(type)).RightFaceMesh.FaceVertices;
+        case TopFace:    return (BlockDataBase.at(type)).TopFaceMesh.FaceVertices;
+        case BottomFace: return (BlockDataBase.at(type)).BottomFaceMesh.FaceVertices;
+        case FrontFace:  return (BlockDataBase.at(type)).FrontFaceMesh.FaceVertices;
+        case BackFace:   return (BlockDataBase.at(type)).BackFaceMesh.FaceVertices;
+        default: {
+            assert(false && "Invalid face_type passed to function!");
+        }
+    }
+}
+
+
 const std::array<Vertex, 6> Face::LeftFaceVertPos = {
     Vertex{ glm::vec3(0.0f, 0.0f, 0.0f) },
     Vertex{ glm::vec3(0.0f, 1.0f, 0.0f) },
@@ -70,7 +85,7 @@ const std::array<Vertex, 6> Face::BackFaceVertPos = {
 
 size_t Face::FACE_VERTEX_COUNT = 6;
 
-void add_face_vertices(Tex &texture, std::vector<Vertex> &mesh,  Face &face) {
+void add_face_vertices(Texture &texture, std::vector<Vertex> &mesh,  Face &face) {
     static const std::array<int, 6> uvIndices = { 0, 3, 2, 2, 1, 0 };
     for (int i = 0;i < Face::FACE_VERTEX_COUNT;i++) {
         Vertex v = face.FaceVertices[i];
@@ -81,10 +96,10 @@ void add_face_vertices(Tex &texture, std::vector<Vertex> &mesh,  Face &face) {
 }
 
 BlockMesh::BlockMesh(BlockTypes types,const TextureAtlas &ta) :BlockType(types) {
-    // MeshData.reserve(FACE_VERTEX_COUNT * 6);
+    MeshData.reserve(Face::FACE_VERTEX_COUNT * 6);
     switch (types) {
         default: {
-            Tex Texture = ta.Textures.at(types);
+            Texture Texture = ta.Textures.at(types);
 
             add_face_vertices(Texture,MeshData,TopFaceMesh);
             add_face_vertices(Texture,MeshData,BottomFaceMesh);
@@ -98,9 +113,9 @@ BlockMesh::BlockMesh(BlockTypes types,const TextureAtlas &ta) :BlockType(types) 
 
         }
         case DirtGrass: {
-            Tex TextureGrassTop = ta.Textures.at(Grass);
-            Tex TextureDirtGrass = ta.Textures.at(DirtGrass);
-            Tex DirtBottom = ta.Textures.at(Dirt);
+            Texture TextureGrassTop = ta.Textures.at(Grass);
+            Texture TextureDirtGrass = ta.Textures.at(DirtGrass);
+            Texture DirtBottom = ta.Textures.at(Dirt);
 
             add_face_vertices(TextureGrassTop,MeshData,TopFaceMesh);
             add_face_vertices(DirtBottom,MeshData,BottomFaceMesh);

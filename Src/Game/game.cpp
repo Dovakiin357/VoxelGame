@@ -35,7 +35,7 @@ void Renderer::render(glm::mat4 &view, glm::mat4 &proj, GLuint atl) {
         glUniform1i((int)TextureLoc,0);
 
         glBindVertexArray(obj.VAO);
-        glDrawArrays(GL_TRIANGLES,0,CHUNK_VERTEX_COUNT);
+        glDrawArrays(GL_TRIANGLES,0,(int)obj.VertexCount);
     }
 }
 
